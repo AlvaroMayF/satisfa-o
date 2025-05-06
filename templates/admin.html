@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel Administrativo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h2>Resposta formulário de satisfação corporativa</h2>
+
+    <!-- GRÁFICO CENTRALIZADO E RESPONSIVO -->
+    <div class="grafico-container">
+        <canvas id="graficoMedia"></canvas>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('graficoMedia').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [
+                    '1. Motivação',
+                    '2. Condições',
+                    '3. Colegas',
+                    '4. Liderança',
+                    '5. Reconhecimento',
+                    '6. Metas',
+                    '7. Desenvolvimento',
+                    '8. Liberdade'
+                ],
+                datasets: [{
+                    label: 'Média das Respostas (1 a 5)',
+                    data: {{ medias | safe }},
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 5
+                    }
+                }
+            }
+        });
+    </script>
+
+    <br><hr><br>
+
+    <!-- TABELA DE RESPOSTAS -->
+    <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+            <tr>
+                <th>1. Motivação diária</th>
+                <th>2. Condições de trabalho</th>
+                <th>3. Relacionamento com colegas</th>
+                <th>4. Apoio da liderança</th>
+                <th>5. Reconhecimento</th>
+                <th>6. Clareza de metas</th>
+                <th>7. Oportunidade de desenvolvimento</th>
+                <th>8. Liberdade de opinião</th>
+                <th>9. O que mais gosta</th>
+                <th>10. O que pode melhorar</th>
+                <th>11. Comentários adicionais</th>
+                <th>Data da Resposta</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for r in respostas %}
+            <tr>
+                <td>{{ r.resposta1 }}</td>
+                <td>{{ r.resposta2 }}</td>
+                <td>{{ r.resposta3 }}</td>
+                <td>{{ r.resposta4 }}</td>
+                <td>{{ r.resposta5 }}</td>
+                <td>{{ r.resposta6 }}</td>
+                <td>{{ r.resposta7 }}</td>
+                <td>{{ r.resposta8 }}</td>
+                <td>{{ r.resposta9 }}</td>
+                <td>{{ r.resposta10 }}</td>
+                <td>{{ r.resposta11 }}</td>
+                <td>{{ r.data_resposta | format_datetime }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

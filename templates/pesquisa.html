@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Pesquisa de Satisfação</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="pesquisa-container">
+        <h2>Pesquisa de Satisfação Corporativa</h2>
+        <form method="POST">
+
+            {% for i in range(1, 9) %}
+                <p><strong>{{ i }}.</strong>
+                    {% if i == 1 %}Sinto-me motivado(a) a realizar meu trabalho diariamente.
+                    {% elif i == 2 %}Tenho condições adequadas (físicas e materiais) para realizar minhas atividades.
+                    {% elif i == 3 %}Tenho um bom relacionamento com meus colegas de trabalho.
+                    {% elif i == 4 %}Recebo apoio e orientação adequados da minha liderança direta.
+                    {% elif i == 5 %}Sinto que meu trabalho é reconhecido e valorizado pela instituição.
+                    {% elif i == 6 %}As metas e objetivos da minha equipe são claros e atingíveis.
+                    {% elif i == 7 %}Tenho oportunidade de aprender e me desenvolver profissionalmente.
+                    {% elif i == 8 %}Sinto-me à vontade para expor minhas opiniões e ideias.
+                    {% endif %}
+                </p>
+                {% for j in range(1, 6) %}
+                    <label><input type="radio" name="resposta{{ i }}" value="{{ j }}" required> {{ j }}</label>
+                {% endfor %}
+            {% endfor %}
+
+            <p><strong>9.</strong> O que você mais gosta no ambiente de trabalho?</p>
+            <textarea name="resposta9" rows="3" required></textarea>
+
+            <p><strong>10.</strong> O que poderia ser melhorado para aumentar sua satisfação?</p>
+            <textarea name="resposta10" rows="3" required></textarea>
+
+            <p><strong>11.</strong> Há algo mais que gostaria de compartilhar?</p>
+            <textarea name="resposta11" rows="3"></textarea>
+
+            <button type="submit">Enviar Respostas</button>
+        </form>
+    </div>
+</body>
+</html>

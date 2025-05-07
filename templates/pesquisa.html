@@ -1,3 +1,4 @@
+<!-- templates/pesquisa.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -5,11 +6,10 @@
     <title>Pesquisa de Satisfação</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
+<body class="pesquisa-page">
     <div class="pesquisa-container">
         <h2>Pesquisa de Satisfação Corporativa</h2>
         <form method="POST">
-
             {% for i in range(1, 9) %}
                 <p><strong>{{ i }}.</strong>
                     {% if i == 1 %}Sinto-me motivado(a) a realizar meu trabalho diariamente.
@@ -23,7 +23,9 @@
                     {% endif %}
                 </p>
                 {% for j in range(1, 6) %}
-                    <label><input type="radio" name="resposta{{ i }}" value="{{ j }}" required> {{ j }}</label>
+                    <label>
+                        <input type="radio" name="resposta{{ i }}" value="{{ j }}" required> {{ j }}
+                    </label>
                 {% endfor %}
             {% endfor %}
 

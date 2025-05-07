@@ -1,211 +1,320 @@
+/* static/style.css */
+
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Define altura total e fonte */
+html, body {
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Imagem de fundo e centraliza o container */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 40px;
-    background-color: #f4f6f8;
-    color: #333;
+  background: url('img/background.png') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #333;
+  position: relative;
 }
 
-h2 {
-    color: #2c3e50;
-    margin-bottom: 20px;
+/* Botão do RH, no canto superior direito */
+.admin-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: rgba(0, 82, 204, 0.8);
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+.admin-button:hover {
+  background-color: rgba(0, 65, 168, 0.9);
 }
 
-form {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    max-width: 700px;
-    margin: 0 auto;
-}
-
-form p {
-    margin: 15px 0 5px;
-}
-
-input[type="radio"] {
-    margin-right: 8px;
-}
-
-textarea {
-    width: 100%;
-    padding: 8px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: vertical;
-}
-
-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #3498db;
-    border: none;
-    border-radius: 4px;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #2980b9;
-}
-
-/* Estilo para a tabela do painel administrativo */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #fff;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-th, td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
-    vertical-align: top;
-}
-
-th {
-    background-color: #3498db;
-    color: white;
-    font-weight: 500;
-    font-size: 14px;
-}
-
-td {
-    font-size: 13px;
-    color: #2c3e50;
-}
-
-tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-h2 {
-    text-align: center;
-}
-.grafico-container {
-    max-width: 700px;
-    margin: 30px auto;
-}
-
-#graficoMedia {
-    width: 100% !important;
-    height: auto !important;
-}
+/* Container de login */
 .login-container {
-    max-width: 400px;
-    margin: 80px auto;
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.9);
+  width: 100%;
+  max-width: 400px;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.login-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #2c3e50;
-}
-
-.login-container label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: bold;
-    color: #444;
-}
-
-.login-container input[type="text"],
-.login-container input[type="date"] {
-    width: 100%;
-    padding: 10px;
-    font-size: 14px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.login-container button {
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    background-color: #3498db;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.login-container button:hover {
-    background-color: #2980b9;
-}
-
-.login-container .error {
-    color: red;
-    text-align: center;
-    margin-top: 10px;
-}
+/* Container de pesquisa (largura maior e sem scroll interno) */
 .pesquisa-container {
-    max-width: 800px;
-    margin: 50px auto;
-    background-color: #fff;
-    padding: 30px 40px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.9);
+  width: 100%;
+  max-width: 800px;      /* agora mais largo para desktop */
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: visible;     /* deixa o container crescer naturalmente */
+  max-height: none;
 }
 
+
+/* Títulos */
+.login-container h2,
 .pesquisa-container h2 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #2c3e50;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2c3e50;
 }
 
-.pesquisa-container p {
-    margin: 20px 0 10px;
-    font-weight: 500;
-    color: #333;
-}
-
+/* Labels gerais */
+.login-container label,
+.pesquisa-container p,
 .pesquisa-container label {
-    margin-right: 10px;
+  display: block;
+  font-size: 0.9rem;
+  color: #2c3e50;
 }
 
-.pesquisa-container input[type="radio"] {
-    margin: 0 4px;
+/* Campos de texto, data e senha (login) */
+.login-container input[type="text"],
+.login-container input[type="date"],
+.login-container input[type="password"] {
+  width: 100%;
+  padding: 12px 16px;
+  margin-top: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #f5f7fa;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.pesquisa-container textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: vertical;
-    font-size: 14px;
-    margin-top: 5px;
+/* Efeito de foco (login) */
+.login-container input[type="text"]:focus,
+.login-container input[type="date"]:focus,
+.login-container input[type="password"]:focus {
+  border-color: #0052cc;
+  box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.2);
+  outline: none;
 }
 
-.pesquisa-container button {
-    margin-top: 30px;
-    width: 100%;
-    padding: 14px;
-    background-color: #3498db;
-    color: white;
-    border: none;
-    font-size: 16px;
-    border-radius: 4px;
-    cursor: pointer;
+/* Botão de submit (login) */
+.login-container button {
+  width: 100%;
+  margin-top: 25px;
+  padding: 14px 0;
+  background-color: #0052cc;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.login-container button:hover {
+  background-color: #0041a8;
 }
 
-.pesquisa-container button:hover {
-    background-color: #2980b9;
+/* Mensagem de erro */
+.login-container .error {
+  color: #c00;
+  text-align: center;
+  margin-top: 15px;
 }
+
+/* Caixa de informação extra no login */
 .info-box-login {
-    margin-top: 30px;
-    background-color: #f8f9fa;
-    border-top: 1px solid #ccc;
-    padding: 12px;
-    font-size: 13px;
-    color: #555;
-    text-align: center;
-    border-radius: 0 0 8px 8px;
+  margin-top: 30px;
+  background-color: #f8f9fa;
+  border-top: 1px solid #ccc;
+  padding: 12px;
+  font-size: 13px;
+  color: #555;
+  text-align: center;
+  border-radius: 0 0 8px 8px;
+}
+
+/* Estilos para a página de pesquisa */
+
+/* Texto das perguntas */
+.pesquisa-container p {
+  margin-top: 15px;
+  font-weight: 500;
+}
+
+/* Radios */
+.pesquisa-container input[type="radio"] {
+  margin-right: 6px;
+}
+
+/* Textareas */
+.pesquisa-container textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  resize: vertical;
+  font-size: 1rem;
+  background-color: #f5f7fa;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.pesquisa-container textarea:focus {
+  border-color: #0052cc;
+  box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.2);
+  outline: none;
+}
+
+/* Botão de submit (pesquisa) */
+.pesquisa-container button {
+  width: 100%;
+  margin-top: 30px;
+  padding: 14px 0;
+  background-color: #0052cc;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.pesquisa-container button:hover {
+  background-color: #0041a8;
+}
+
+/* Responsividade simples */
+@media (max-width: 500px) {
+  .login-container,
+  .pesquisa-container {
+    padding: 20px;
+  }
+  .admin-button {
+    top: 10px;
+    right: 10px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+}
+/* Override para a página de admin */
+body.admin-page {
+  /* cor de fundo neutra */
+  background: #f4f6f8 !important;
+  /* retira o flex e centralização usados nas outras telas */
+  display: block !important;
+  justify-content: normal !important;
+  align-items: normal !important;
+  padding: 2rem; /* se desejar um espaçamento interno */
+  min-height: auto !important;
+}
+/* === Estilos específicos para a página de admin === */
+
+/* Corpo da página (override do fundo já aplicado) */
+body.admin-page {
+  background: #f0f2f5 !important;
+  padding: 2rem 4rem;
+}
+
+/* Título principal */
+body.admin-page h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #0052cc;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Container do gráfico */
+.grafico-container {
+  max-width: 800px;
+  margin: 0 auto 3rem;
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Tabela de respostas */
+body.admin-page table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto 2rem;
+  font-size: 0.95rem;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Cabeçalho da tabela */
+body.admin-page table thead {
+  background-color: #0052cc;
+  color: #fff;
+}
+
+body.admin-page table th,
+body.admin-page table td {
+  padding: 12px 15px;
+  text-align: center;
+}
+
+/* Linhas alternadas */
+body.admin-page table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Hover nas linhas */
+body.admin-page table tbody tr:hover {
+  background-color: #e6f0ff;
+}
+
+/* Ajuste para células de ID e data (mais estreitas) */
+body.admin-page table th:first-child,
+body.admin-page table td:first-child {
+  width: 5%;
+}
+body.admin-page table th:last-child,
+body.admin-page table td:last-child {
+  width: 15%;
+}
+
+/* Responsividade simples */
+@media (max-width: 768px) {
+  body.admin-page {
+    padding: 1rem 2rem;
+  }
+  .grafico-container {
+    padding: 1rem;
+  }
+  body.admin-page table th,
+  body.admin-page table td {
+    padding: 8px 10px;
+    font-size: 0.85rem;
+  }
+}
+/* ==== Ajustes para a página de pesquisa ==== */
+
+body.pesquisa-page {
+  /* em vez de flex, voltamos ao fluxo natural para permitir scroll de página */
+  display: block !important;
+  padding: 2rem 0;
+  background: url('img/background.png') no-repeat center center fixed;
+  background-size: cover;
+}
+
+body.pesquisa-page .pesquisa-container {
+  /* largura maior para desktop */
+  max-width: 800px;
+  margin: 0 auto 3rem;
+  /* remove scroll interno e limite de altura */
+  overflow: visible !important;
+  max-height: none !important;
 }

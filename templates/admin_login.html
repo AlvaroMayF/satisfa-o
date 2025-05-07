@@ -2,19 +2,18 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Login - Pesquisa</title>
+    <title>Login RH - Pesquisa</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <!-- Botão de acesso do RH -->
-    <button class="admin-button" onclick="window.location.href='{{ url_for('admin_login') }}'">
-      Área do RH
+    <button class="admin-button" onclick="window.location.href='{{ url_for('login') }}'">
+      Voltar ao Login Colaborador
     </button>
 
     <div class="login-container">
-        <h2>Entrar na Pesquisa</h2>
+        <h2>Entrar - Área do RH</h2>
 
-        <form method="POST">
+        <form method="POST" action="{{ url_for('admin_login') }}">
             <label for="cpf">CPF:</label>
             <input type="text" name="cpf" required>
 
@@ -27,10 +26,6 @@
         {% if error %}
             <p class="error">{{ error }}</p>
         {% endif %}
-
-        <div class="info-box-login">
-            Pesquisa de satisfação da rede Samar, questionário totalmente anônimo
-        </div>
     </div>
 </body>
 </html>

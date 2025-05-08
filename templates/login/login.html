@@ -3,37 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Login - Pesquisa</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
 </head>
 <body>
     <!-- Botão de acesso do RH -->
     <button class="admin-button" onclick="window.location.href='{{ url_for('admin_login') }}'">
       Área do RH
     </button>
-
+    <div class="teste-1"></div>
     <div class="login-container">
+     <div class="logo">
+        <img src="{{ url_for('static', filename='/img/logo.png') }}" alt="">
+     </div>
         <h2>Entrar na Pesquisa</h2>
+        
 
-        <!-- FORMA AJUSTADA: action e method definidos -->
-        <form method="POST" action="{{ url_for('login') }}">
+        <form method="POST">
             <label for="cpf">CPF:</label>
-            <input
-              type="text"
-              id="cpf"
-              name="cpf"
-              placeholder="Digite seu CPF"
-              required
-            >
+            <input type="text" name="cpf" required>
 
             <label for="data_nascimento">Data de nascimento:</label>
-            <input
-              type="date"
-              id="data_nascimento"
-              name="data_nascimento"
-              required
-            >
+            <input type="date" name="data_nascimento" required>
 
-            <button type="submit">Entrar</button>
+            <button type="submit" class="btn-login">Entrar</button>
         </form>
 
         {% if error %}

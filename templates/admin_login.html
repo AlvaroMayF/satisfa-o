@@ -1,31 +1,29 @@
+<!-- templates/admin_login.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <title>Login RH - Pesquisa</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta charset="UTF-8" />
+  <title>Admin Login</title>
 </head>
 <body>
-    <button class="admin-button" onclick="window.location.href='{{ url_for('login') }}'">
-      Voltar ao Login Colaborador
-    </button>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <ul>
+      {% for category, msg in messages %}
+        <li class="{{ category }}">{{ msg }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
 
-    <div class="login-container">
-        <h2>Entrar - Área do RH</h2>
-
-        <form method="POST" action="{{ url_for('admin_login') }}">
-            <label for="cpf">CPF:</label>
-            <input type="text" name="cpf" required>
-
-            <label for="data_nascimento">Data de nascimento:</label>
-            <input type="date" name="data_nascimento" required>
-
-            <button type="submit">Entrar</button>
-        </form>
-
-        {% if error %}
-            <p class="error">{{ error }}</p>
-        {% endif %}
-    </div>
+  <form method="post" action="{{ url_for('admin_login') }}">
+    <label>Usuário:
+      <input type="text" name="username" required>
+    </label><br/>
+    <label>Senha:
+      <input type="password" name="password" required>
+    </label><br/>
+    <button type="submit">Entrar</button>
+  </form>
 </body>
 </html>

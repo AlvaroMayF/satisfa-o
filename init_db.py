@@ -1,6 +1,6 @@
 import sqlite3
 
-conn = sqlite3.connect('database.db')
+conn = sqlite3.connect('survey.db')
 cursor = conn.cursor()
 
 # Criação da tabela de colaboradores

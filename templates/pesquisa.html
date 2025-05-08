@@ -1,45 +1,146 @@
-<!-- templates/pesquisa.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Pesquisa de Satisfação</title>
+    <title>Pesquisa de Clima Organizacional</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body class="pesquisa-page">
     <div class="pesquisa-container">
-        <h2>Pesquisa de Satisfação Corporativa</h2>
-        <form method="POST">
-            {% for i in range(1, 9) %}
-                <p><strong>{{ i }}.</strong>
-                    {% if i == 1 %}Sinto-me motivado(a) a realizar meu trabalho diariamente.
-                    {% elif i == 2 %}Tenho condições adequadas (físicas e materiais) para realizar minhas atividades.
-                    {% elif i == 3 %}Tenho um bom relacionamento com meus colegas de trabalho.
-                    {% elif i == 4 %}Recebo apoio e orientação adequados da minha liderança direta.
-                    {% elif i == 5 %}Sinto que meu trabalho é reconhecido e valorizado pela instituição.
-                    {% elif i == 6 %}As metas e objetivos da minha equipe são claros e atingíveis.
-                    {% elif i == 7 %}Tenho oportunidade de aprender e me desenvolver profissionalmente.
-                    {% elif i == 8 %}Sinto-me à vontade para expor minhas opiniões e ideias.
-                    {% endif %}
+        <!-- Banner e introdução geral -->
+        <div class="form-header">
+            <h2>Pesquisa de Clima Organizacional</h2>
+            <p class="intro">
+                Prezado colaborador,<br>
+                O preenchimento <strong>consciente e sincero</strong> da Pesquisa de Clima Organizacional é <strong>essencial</strong> para impulsionarmos juntos a excelência da nossa instituição. Esta ferramenta é o canal direto para captarmos suas percepções, anseios e desafios, que refletem não apenas no seu dia a dia, mas também na qualidade do atendimento aos nossos pacientes.
+            </p>
+            <p class="intro">
+                <strong>Por que sua participação faz a diferença?</strong><br>
+                ✓ Identifica oportunidades de melhoria concretas;<br>
+                ✓ Fortalece a transparência e a comunicação interna;<br>
+                ✓ Orienta a gestão na tomada de decisões alinhadas às suas necessidades;<br>
+                ✓ Promove um ambiente de trabalho mais saudável e produtivo para todos.
+            </p>
+            <p class="intro">
+                <strong>Dedique alguns minutos</strong> para responder com autenticidade – cada contribuição é um passo rumo a uma Rede Hospitalar Samar ainda melhor. Juntos, construímos o futuro da nossa equipe e da saúde que entregamos à sociedade!
+            </p>
+        </div>
+
+        <!-- Seção 1 -->
+        <div class="section">
+            <div class="section-header">
+                <h3>Tempo de Empresa</h3>
+                <p>
+                    Queremos celebrar sua jornada na Rede Hospitalar Samar. Há quanto tempo você faz parte dessa equipe incrível, dedicada a cuidar de vidas e transformar histórias? Conte pra gente e inspire outros com sua trajetória!
                 </p>
-                {% for j in range(1, 6) %}
-                    <label>
-                        <input type="radio" name="resposta{{ i }}" value="{{ j }}" required> {{ j }}
-                    </label>
-                {% endfor %}
-            {% endfor %}
+            </div>
+            <fieldset class="question-block">
+                <legend>1. Há quanto tempo você trabalha na Rede Hospitalar Samar? <span class="required">*</span></legend>
+                <label><input type="radio" name="resposta9" value="Menos de 12 meses" required> Menos de 12 meses</label>
+                <label><input type="radio" name="resposta9" value="De 1 ano a 2 anos"> De 1 ano a 2 anos</label>
+                <label><input type="radio" name="resposta9" value="De 3 anos a 4 anos"> De 3 anos a 4 anos</label>
+                <label><input type="radio" name="resposta9" value="Acima de 5 anos"> Acima de 5 anos</label>
+            </fieldset>
+        </div>
 
-            <p><strong>9.</strong> O que você mais gosta no ambiente de trabalho?</p>
-            <textarea name="resposta9" rows="3" required></textarea>
+        <!-- Seção 2 -->
+        <div class="section">
+            <div class="section-header">
+                <h3>Percepção Sobre a Empresa</h3>
+                <p>
+                    Queremos saber a sua percepção sobre a Rede Hospitalar Samar. Sua opinião é fundamental para continuarmos crescendo e oferecendo um atendimento cada vez mais humano e de excelência. Compartilhe conosco e, juntos, vamos construir um futuro ainda mais inspirador na saúde!
+                </p>
+            </div>
+            <fieldset class="question-block">
+                <legend>2. Como você avalia seu nível de satisfação com o ambiente de trabalho da empresa? <span class="required">*</span></legend>
+                <label><input type="radio" name="resposta1" value="Muito satisfeito" required> Muito satisfeito</label>
+                <label><input type="radio" name="resposta1" value="Satisfeito"> Satisfeito</label>
+                <label><input type="radio" name="resposta1" value="Insatisfeito"> Insatisfeito</label>
+                <label><input type="radio" name="resposta1" value="Muito insatisfeito"> Muito insatisfeito</label>
+            </fieldset>
+            <fieldset class="question-block">
+                <legend>3. Como você avalia seu nível de satisfação com a distribuição de tarefas? <span class="required">*</span></legend>
+                <label><input type="radio" name="resposta2" value="Muito satisfeito" required> Muito satisfeito</label>
+                <label><input type="radio" name="resposta2" value="Satisfeito"> Satisfeito</label>
+                <label><input type="radio" name="resposta2" value="Insatisfeito"> Insatisfeito</label>
+                <label><input type="radio" name="resposta2" value="Muito insatisfeito"> Muito insatisfeito</label>
+            </fieldset>
+            <fieldset class="question-block">
+                <legend>4. Como você avalia seu nível de satisfação sobre seu trabalho ser importante para a empresa como um todo? <span class="required">*</span></legend>
+                <label><input type="radio" name="resposta3" value="Muito satisfeito" required> Muito satisfeito</label>
+                <label><input type="radio" name="resposta3" value="Satisfeito"> Satisfeito</label>
+                <label><input type="radio" name="resposta3" value="Insatisfeito"> Insatisfeito</label>
+                <label><input type="radio" name="resposta3" value="Muito insatisfeito"> Muito insatisfeito</label>
+            </fieldset>
+            <fieldset class="question-block">
+                <legend>5. Como você avalia se a empresa é um bom ambiente para trabalhar? <span class="required">*</span></legend>
+                <label><input type="radio" name="resposta4" value="Muito satisfeito" required> Muito satisfeito</label>
+                <label><input type="radio" name="resposta4" value="Satisfeito"> Satisfeito</label>
+                <label><input type="radio" name="resposta4" value="Insatisfeito"> Insatisfeito</label>
+                <label><input type="radio" name="resposta4" value="Muito insatisfeito"> Muito insatisfeito</label>
+            </fieldset>
+        </div>
 
-            <p><strong>10.</strong> O que poderia ser melhorado para aumentar sua satisfação?</p>
-            <textarea name="resposta10" rows="3" required></textarea>
+        <!-- Seção 3 -->
+        <div class="section">
+            <div class="section-header">
+                <h3>Relacionamento no Trabalho</h3>
+                <p>
+                    Queremos saber como está o seu relacionamento no ambiente de trabalho na Rede Hospitalar Samar. Sua experiência e conexão com a equipe são essenciais para fortalecermos juntos um ambiente acolhedor, colaborativo e cheio de energia positiva.
+                </p>
+            </div>
+            <fieldset class="question-block">
+                <legend>6. Como você avalia a cooperação entre os setores da empresa? <span class="required">*</span></legend>
+                <label><input type="radio" name="resposta5" value="Muito satisfeito" required> Muito satisfeito</label>
+                <label><input type="radio" name="resposta5" value="Satisfeito"> Satisfeito</label>
+                <label><input type="radio" name="resposta5" value="Insatisfeito"> Insatisfeito</label>
+                <label><input type="radio" name="resposta5" value="Muito insatisfeito"> Muito insatisfeito</label>
+            </fieldset>
+            <fieldset class="question-block">
+                <legend>7. Como você avalia a relação de trabalho com os seus colegas? <span class="required">*</span></legend>
+                <label><input type="radio" name="resposta6" value="Muito satisfeito" required> Muito satisfeito</label>
+                <label><input type="radio" name="resposta6" value="Satisfeito"> Satisfeito</label>
+                <label><input type="radio" name="resposta6" value="Insatisfeito"> Insatisfeito</label>
+                <label><input type="radio" name="resposta6" value="Muito insatisfeito"> Muito insatisfeito</label>
+            </fieldset>
+            <fieldset class="question-block">
+                <legend>8. Como você avalia o trabalho em equipe no seu setor? <span class="required">*</span></legend>
+                <label><input type="radio" name="resposta7" value="Muito satisfeito" required> Muito satisfeito</label>
+                <label><input type="radio" name="resposta7" value="Satisfeito"> Satisfeito</label>
+                <label><input type="radio" name="resposta7" value="Insatisfeito"> Insatisfeito</label>
+                <label><input type="radio" name="resposta7" value="Muito insatisfeito"> Muito insatisfeito</label>
+            </fieldset>
+            <fieldset class="question-block">
+                <legend>9. Em geral, como você avalia o seu nível de motivação para vir trabalhar todos os dias? <span class="required">*</span></legend>
+                <label><input type="radio" name="resposta8" value="Muito satisfeito" required> Muito satisfeito</label>
+                <label><input type="radio" name="resposta8" value="Satisfeito"> Satisfeito</label>
+                <label><input type="radio" name="resposta8" value="Insatisfeito"> Insatisfeito</label>
+                <label><input type="radio" name="resposta8" value="Muito insatisfeito"> Muito insatisfeito</label>
+            </fieldset>
+        </div>
 
-            <p><strong>11.</strong> Há algo mais que gostaria de compartilhar?</p>
-            <textarea name="resposta11" rows="3"></textarea>
+        <!-- Seção 4 -->
+        <div class="section">
+            <div class="section-header">
+                <h3>Relacionamento com a Chefia</h3>
+                <p>
+                    Queremos saber como está o seu relacionamento com o seu líder imediato na Rede Hospitalar Samar. Essa parceria é essencial para fortalecer nossa equipe, promover um ambiente de trabalho acolhedor e alcançar resultados que transformam vidas.
+                </p>
+            </div>
+            <fieldset class="question-block">
+                <legend>10. O quanto você concorda com a afirmação: “Meu líder imediato me trata com respeito e consideração”? <span class="required">*</span></legend>
+                <label><input type="radio" name="resposta9" value="Discordo totalmente" required> Discordo totalmente</label>
+                <label><input type="radio" name="resposta9" value="Discordo parcialmente"> Discordo parcialmente</label>
+                <label><input type="radio" name="resposta9" value="Neutro"> Neutro</label>
+                <label><input type="radio" name="resposta9" value="Concordo parcialmente"> Concordo parcialmente</label>
+                <label><input type="radio" name="resposta9" value="Concordo totalmente"> Concordo totalmente</label>
+            </fieldset>
+        </div>
 
+        <!-- Botão Enviar -->
+        <div class="submit-block">
             <button type="submit">Enviar Respostas</button>
-        </form>
+        </div>
     </div>
 </body>
 </html>

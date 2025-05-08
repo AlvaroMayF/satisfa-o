@@ -1,29 +1,42 @@
-<!-- templates/admin_login.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <title>Admin Login</title>
+  <meta charset="UTF-8">
+  <title>Login RH – Área do RH</title>
+  <!-- CSS global -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <!-- CSS específico da área de RH -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='rh.css') }}">
 </head>
 <body>
-  {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-      <ul>
-      {% for category, msg in messages %}
-        <li class="{{ category }}">{{ msg }}</li>
-      {% endfor %}
-      </ul>
-    {% endif %}
-  {% endwith %}
+  <div class="rh-login-container">
+    <h2>Área do RH</h2>
 
-  <form method="post" action="{{ url_for('admin_login') }}">
-    <label>Usuário:
-      <input type="text" name="username" required>
-    </label><br/>
-    <label>Senha:
-      <input type="password" name="password" required>
-    </label><br/>
-    <button type="submit">Entrar</button>
-  </form>
+    <form method="POST">
+      <label for="username">Usuário:</label>
+      <input
+        type="text"
+        name="username"
+        id="username"
+        placeholder="Digite seu usuário"
+        required
+      >
+
+      <label for="password">Senha:</label>
+      <input
+        type="password"
+        name="password"
+        id="password"
+        placeholder="Digite sua senha"
+        required
+      >
+
+      <button type="submit">Entrar</button>
+    </form>
+
+    {% if error %}
+      <p class="error">{{ error }}</p>
+    {% endif %}
+  </div>
 </body>
 </html>

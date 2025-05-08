@@ -1,0 +1,76 @@
+/* static/rh.css */
+
+/* -----------------------------
+   Container de Login RH
+   ----------------------------- */
+.rh-login-container {
+  background-color: rgba(255, 255, 255, 0.95);
+  width: 100%;
+  max-width: 400px;
+  margin: 80px auto;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.rh-login-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2c3e50;
+  font-size: 1.8rem;
+}
+.rh-login-container label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+  color: #444;
+}
+.rh-login-container input[type="text"],
+.rh-login-container input[type="date"],
+.rh-login-container input[type="password"] {
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #f5f7fa;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.rh-login-container input:focus {
+  border-color: #0052cc;
+  box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.2);
+  outline: none;
+}
+.rh-login-container button[type="submit"] {
+  width: 100%;
+  padding: 14px 0;
+  background-color: #0052cc;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.rh-login-container button[type="submit"]:hover {
+  background-color: #0041a8;
+}
+.rh-login-container .error {
+  color: #c00;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* -----------------------------
+   Responsividade Mobile
+   ----------------------------- */
+@media (max-width: 500px) {
+  .rh-login-container {
+    padding: 20px;
+    margin: 40px auto;
+  }
+  .rh-login-container h2 {
+    font-size: 1.5rem;
+  }
+}

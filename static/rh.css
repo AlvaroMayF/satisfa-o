@@ -27,7 +27,7 @@
   display: block;
   margin-bottom: 6px;
   font-weight: bold;
-  color: #444;
+  color: #fff;
 }
 .rh-login-container input[type="text"],
 .rh-login-container input[type="date"],
@@ -42,14 +42,14 @@
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 .rh-login-container input:focus {
-  border-color: #0052cc;
+  border-color: var(--secondaryColor);
   box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.2);
   outline: none;
 }
 .rh-login-container button[type="submit"] {
   width: 100%;
   padding: 14px 0;
-  background-color: #0052cc;
+  background-color: var(--secondaryColor);
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -59,7 +59,7 @@
   transition: background-color 0.3s ease;
 }
 .rh-login-container button[type="submit"]:hover {
-  background-color: #0041a8;
+  background-color: var(--secondaryColor);
 }
 .rh-login-container .error {
   color: #c00;

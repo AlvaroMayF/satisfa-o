@@ -2,7 +2,8 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Login - Pesquisa</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisa de clima organizacional.</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='/img/favicon.ico') }}" type="image/x-icon">
 
@@ -12,13 +13,11 @@
     <button class="admin-button" onclick="window.location.href='{{ url_for('admin_login') }}'">
       Área do RH
     </button>
-    <div class="teste-1"></div>
     <div class="login-container">
      <div class="logo">
         <img src="{{ url_for('static', filename='/img/logo.png') }}" alt="">
      </div>
-        <h2>Pesquisa de clima organizacional</h2>
-        <span>Buscando sempre blah</span>
+        <h2>Pesquisa de clima organizacional.</h2>
         <form method="POST">
             <label for="cpf">CPF:</label>
             <input type="text" name="cpf" required>

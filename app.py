@@ -5,7 +5,6 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 import matplotlib.pyplot as plt
 import io
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-from functools import wraps
 
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY', 'uma_string_bem_grande_e_difícil')
@@ -17,6 +16,7 @@ RH_CREDENTIALS = {
     "rh1": "senha123",
     "rh2": "secret456"
 }
+
 
 def get_db_connection():
     conn = sqlite3.connect('survey.db')  # Ajuste o caminho do seu banco de dados aqui
@@ -30,26 +30,6 @@ def format_datetime(value):
         return ''
     dt = datetime.strptime(value, "%Y-%m-%d %H:%M:%S")
     return dt.strftime("%d/%m/%Y %H:%M")
-
-
-# Decorador para proteger rotas de login (proteger a pesquisa)
-def login_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if 'user_logged_in' not in session:  # Se não estiver logado
-            return redirect(url_for('login'))  # Redireciona para o login
-        return f(*args, **kwargs)
-    return decorated_function
-
-
-# Decorador para proteger o painel de admin
-def admin_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if 'admin_logged_in' not in session:  # Se o admin não estiver logado
-            return redirect(url_for('admin_login'))  # Redireciona para o login do admin
-        return f(*args, **kwargs)
-    return decorated_function
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -78,8 +58,8 @@ def login():
                     error = 'Você já respondeu à pesquisa.'
                 else:
                     conn.close()
-                    session['user_logged_in'] = True  # Marca o usuário como logado
-                    return redirect(url_for('pesquisa', user_id=user['id']))  # Redireciona para o formulário de pesquisa
+                    return redirect(
+                        url_for('pesquisa', user_id=user['id']))  # Redireciona para o formulário de pesquisa
             else:
                 error = 'Dados inválidos.'
 
@@ -93,28 +73,29 @@ def login():
 
 
 @app.route('/pesquisa/<int:user_id>', methods=['GET', 'POST'])
-@login_required  # Protege a rota de pesquisa
 def pesquisa(user_id):
     if request.method == 'POST':
-        respostas = [request.form.get(f'resposta{i}') for i in range(1, 12)]
+        respostas = [request.form.get(f'resposta{i}') for i in range(1, 12)]  # Obtém as respostas das perguntas
 
         with get_db_connection() as conn:
-            conn.execute(''' 
-                INSERT INTO respostas (
-                    resposta1, resposta2, resposta3, resposta4, resposta5, resposta6,
-                    resposta7, resposta8, resposta9, resposta10, resposta11
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            ''', respostas)
+            # Inserção das respostas na tabela de respostas
+            conn.execute('''
+                         INSERT INTO respostas (resposta1, resposta2, resposta3, resposta4, resposta5, resposta6,
+                                                resposta7, resposta8, resposta9, resposta10, resposta11)
+                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                         ''', respostas)
 
+            # Atualiza a tabela de colaboradores para indicar que o colaborador já respondeu
             conn.execute(
                 'UPDATE colaboradores SET respondeu = 1 WHERE id = ?',
                 (user_id,)
             )
-            conn.commit()
+            conn.commit()  # Confirma as alterações no banco de dados
 
-        return 'Obrigado por sua resposta!'
+        return 'Obrigado por sua resposta!'  # Resposta após o envio
 
     return render_template('login/pesquisa.html', user_id=user_id)
+
 
 
 @app.route('/admin-login', methods=['GET', 'POST'])
@@ -144,8 +125,10 @@ def admin_login():
 
 
 @app.route('/admin')
-@admin_required  # Protege a área de admin
 def admin():
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('admin_login'))
+
     with get_db_connection() as conn:
         respostas = conn.execute(
             'SELECT * FROM respostas ORDER BY data_resposta DESC'
@@ -157,7 +140,7 @@ def admin():
             result = conn.execute(
                 f'SELECT AVG(CAST({coluna} AS FLOAT)) as media FROM respostas'
             ).fetchone()
-            medias.append(round(result[0], 2) if result[0] is not None else 0)
+            medias.append(round(result[0], 2) if result[0] is not None else 0)  # Usando índice numérico
 
         charts = []
         questions = conn.execute('SELECT * FROM form_questions ORDER BY order_index').fetchall()

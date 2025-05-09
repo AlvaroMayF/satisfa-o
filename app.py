@@ -71,10 +71,6 @@ def login():
 
     return render_template('./login/login.html', error=error)
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 82b81fedf4cd6421fb496ca3aea60d008d492937
 @app.route('/pesquisa/<int:user_id>', methods=['GET', 'POST'])
 def pesquisa(user_id):
     if request.method == 'POST':

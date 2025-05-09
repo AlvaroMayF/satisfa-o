@@ -68,8 +68,6 @@ def login():
 
     return render_template('./login/login.html', error=error)
 
-
-
 @app.route('/pesquisa/<int:user_id>', methods=['GET', 'POST'])
 def pesquisa(user_id):
     if request.method == 'POST':
@@ -167,8 +165,6 @@ def admin():
             })
 
     return render_template('login/admin.html', charts=charts, respostas=respostas, medias=medias)
-
-
 @app.route('/admin/chart/<int:chart_id>')
 def chart(chart_id):
     chart = next((chart for chart in charts if chart['id'] == chart_id), None)

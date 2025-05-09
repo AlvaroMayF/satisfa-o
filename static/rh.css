@@ -8,6 +8,10 @@
     --secondaryColor:#3dc4df;
     --maxWidth:500px;
   }
+  html, body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
 .rh-login-container {
   background-color: var(--primaryColor);
   width: 100%;
@@ -29,11 +33,9 @@
   font-weight: bold;
   color: #fff;
 }
-.rh-login-container input[type="text"],
-.rh-login-container input[type="date"],
-.rh-login-container input[type="password"] {
-  width: 100%;
-  padding: 12px 16px;
+.rh-login-container input {
+  width: 94%;
+  padding: 12px ;
   margin-bottom: 20px;
   border: 1px solid #ccc;
   border-radius: 6px;
@@ -45,6 +47,11 @@
   border-color: var(--secondaryColor);
   box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.2);
   outline: none;
+}
+.logo img{
+  width: 300px;
+ display: flex;
+ justify-content: center;
 }
 .rh-login-container button[type="submit"] {
   width: 100%;

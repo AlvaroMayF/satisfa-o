@@ -3,12 +3,23 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Respostas</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='/img/favicon.ico') }}" type="image/x-icon">
     <!-- Chart.js CDN para o gráfico de médias -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body class="admin-page">
+<body >
+  <div class="navbar">
+      <ul>
+        <li class="navbar-item">Inicio</li>
+        <li class="navbar-item">Usuário</li>
+        <li class="navbar-item">Pesquisa</li>
+        <li class="navbar-item">Analitico</li>
+      </ul>
+  </div>
+  <div class="admin-page">
     <h2>Painel de Respostas</h2>
 
     <!-- Gráfico das médias (questões 1–8) -->
@@ -81,5 +92,6 @@
         }
       });
     </script>
-</body>
+    </div>
+</body >
 </html>

@@ -2,16 +2,21 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login RH – Área do RH</title>
   <!-- CSS global -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <!-- CSS específico da área de RH -->
   <link rel="stylesheet" href="{{ url_for('static', filename='rh.css') }}">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='/img/favicon.ico') }}" type="image/x-icon">
+
 </head>
 <body>
-  <div class="rh-login-container">
-    <h2>Área do RH</h2>
 
+  <div class="rh-login-container">
+    <div class="logo">
+      <img src="{{ url_for('static', filename='/img/logo.png') }}" alt="">
+    </div>
+    <h2>Área do RH</h2>
     <form method="POST">
       <label for="username">Usuário:</label>
       <input

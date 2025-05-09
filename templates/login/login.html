@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Login - Pesquisa</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='/img/favicon.ico') }}" type="image/x-icon">
+
 </head>
 <body>
     <!-- Botão de acesso do RH -->
@@ -15,9 +17,8 @@
      <div class="logo">
         <img src="{{ url_for('static', filename='/img/logo.png') }}" alt="">
      </div>
-        <h2>Entrar na Pesquisa</h2>
-        
-
+        <h2>Pesquisa de clima organizacional</h2>
+        <span>Buscando sempre blah</span>
         <form method="POST">
             <label for="cpf">CPF:</label>
             <input type="text" name="cpf" required>

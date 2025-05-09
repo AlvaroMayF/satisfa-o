@@ -3,8 +3,13 @@
 /* -----------------------------
    Container de Login RH
    ----------------------------- */
+   :root{
+    --primaryColor:#00164a;
+    --secondaryColor:#3dc4df;
+    --maxWidth:500px;
+  }
 .rh-login-container {
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: var(--primaryColor);
   width: 100%;
   max-width: 400px;
   margin: 80px auto;
@@ -15,7 +20,7 @@
 .rh-login-container h2 {
   text-align: center;
   margin-bottom: 20px;
-  color: #2c3e50;
+  color: #fff;
   font-size: 1.8rem;
 }
 .rh-login-container label {
@@ -32,7 +37,7 @@
   margin-bottom: 20px;
   border: 1px solid #ccc;
   border-radius: 6px;
-  background-color: #f5f7fa;
+  background-color: #fff;
   font-size: 1rem;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }

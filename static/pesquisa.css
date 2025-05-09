@@ -1,0 +1,220 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  :root{
+    --primaryColor:#00164a;
+    --secondaryColor:#3dc4df;
+    --maxWidth:500px;
+  }
+  
+  /* Define altura total e fonte */
+  html, body {
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--primaryColor);
+  }
+.pesquisa-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    width: 100%;
+    max-width: 800px;      /* agora mais largo para desktop */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: visible;     /* deixa o container crescer naturalmente */
+    max-height: none;
+}
+
+/* Texto das perguntas */
+.pesquisa-container p {
+    margin-top: 15px;
+    font-weight: 500;
+  }
+  
+  /* Radios */
+  .pesquisa-container input[type="radio"] {
+    margin-right: 6px;
+  }
+  
+  /* Textareas */
+  .pesquisa-container textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    resize: vertical;
+    font-size: 1rem;
+    background-color: #f5f7fa;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .pesquisa-container textarea:focus {
+    border-color: #0052cc;
+    box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.2);
+    outline: none;
+  }
+  
+  /* Botão de submit (pesquisa) */
+  .pesquisa-container button {
+    width: 100%;
+    margin-top: 30px;
+    padding: 14px 0;
+    background-color: #0052cc;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .pesquisa-container button:hover {
+    background-color: #0041a8;
+  }
+  
+  /* Responsividade simples */
+  @media (max-width: 500px) {
+    .login-container,
+    .pesquisa-container {
+      padding: 20px;
+    }
+    .admin-button {
+      top: 10px;
+      right: 10px;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+    }
+  }
+  .pesquisa-container {
+    max-width: 760px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+    overflow: hidden;
+  }
+  
+  /* -------------------------------------
+     Cabeçalho e introdução
+     ------------------------------------- */
+  .form-header {
+    background: #e8f4fd;
+    padding: 2rem;
+  }
+  .form-header h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    color: var(--secondaryColor);
+    text-align: center;
+  }
+  .form-header .intro {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-top: 1rem;
+    color: #444;
+  }
+  .section {
+    border-top: 1px solid #ddd;
+    padding: 2rem;
+  }
+  .section-header {
+    background: #f5fcff;
+    padding: 1rem 1.5rem;
+    border-left: 4px solid #0052cc;
+    border-radius: 4px;
+    margin-bottom: 1.5rem;
+  }
+  .section-header h3 {
+    font-size: 1.2rem;
+    color: var(--secondaryColor);
+    margin-bottom: 0.5rem;
+  }
+  .section-header p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: #333;
+  }
+  
+  /* -------------------------------------
+     Campo de pergunta (fieldset)
+     ------------------------------------- */
+  .question-block {
+    border: 1px solid #e1e8ed;
+    border-radius: 6px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    background: #fff;
+    height: 100%;
+  }
+  .question-block legend {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    color: #222;
+    padding: 20px;
+    height: 100%;
+  }
+  .question-block legend .required {
+    color: #c00;
+  }
+  .question-block label {
+    display: block;
+    margin-bottom: 0.6rem;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+  .question-block input[type="radio"] {
+    margin-right: 0.5rem;
+    accent-color: #0052cc;
+  }
+  
+  /* -------------------------------------
+     Botão de submit
+     ------------------------------------- */
+  .submit-block {
+    text-align: center;
+    padding: 1.5rem 0 2rem;
+  }
+  .submit-block button {
+    background-color: var(--primaryColor);
+    color: #fff;
+    border: none;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  .submit-block button:hover {
+    background-color: #0041a8;
+  }
+  
+  /* -------------------------------------
+     Responsividade
+     ------------------------------------- */
+  @media (max-width: 600px) {
+    .pesquisa-container {
+      margin: 0 0.5rem;
+    }
+    .form-header,
+    .section {
+      padding: 1rem;
+    }
+    .section-header {
+      padding: 0.75rem 1rem;
+    }
+    .question-block {
+      padding: 0.75rem 1rem;
+    }
+    .form-header h2 {
+      font-size: 1.5rem;
+    }
+    .section-header h3 {
+      font-size: 1.1rem;
+    }
+    .question-block legend {
+      font-size: 0.95rem;
+    }
+  }
+  

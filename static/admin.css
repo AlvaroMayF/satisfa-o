@@ -1,0 +1,128 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Define altura total e fonte */
+  html, body {
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  :root{
+    --primaryColor:#00164a;
+    --secondaryColor:#3dc4df;
+    --maxWidth:500px;
+  }
+  .navbar{
+    display: flex;
+    font-size: 20px;
+    background-color: var(--primaryColor);
+  }
+  .navbar ul{
+    display: flex;
+    list-style-type: none;
+    width: 100%;
+    margin: 10px;
+    justify-content: right;
+    gap: 2.5rem;
+  }
+  .navbar li{
+    margin: 5px;
+    color: #fff;
+  }
+.admin-page {
+    /* cor de fundo neutra */
+    background: #f4f6f8 !important;
+    /* retira o flex e centralização usados nas outras telas */
+    display: block !important;
+    justify-content: normal !important;
+    align-items: normal !important;
+    padding: 2rem; /* se desejar um espaçamento interno */
+    min-height: auto !important;
+  }
+  /* === Estilos específicos para a página de admin === */
+  
+  /* Corpo da página (override do fundo já aplicado) */
+  .admin-page {
+    background: #f0f2f5 !important;
+    padding: 2rem 4rem;
+  }
+  
+  /* Título principal */
+  .admin-page h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #0052cc;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  /* Container do gráfico */
+  .grafico-container {
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Tabela de respostas */
+  .admin-page table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto 2rem;
+    font-size: 0.95rem;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Cabeçalho da tabela */
+  .admin-page table thead {
+    background-color: #0052cc;
+    color: #fff;
+  }
+  
+  .admin-page table th,
+  .admin-page table td {
+    padding: 12px 15px;
+    text-align: center;
+  }
+  
+  /* Linhas alternadas */
+  .admin-page table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  /* Hover nas linhas */
+  .admin-page table tbody tr:hover {
+    background-color: #e6f0ff;
+  }
+  
+  /* Ajuste para células de ID e data (mais estreitas) */
+  .admin-page table th:first-child,
+  .admin-page table td:first-child {
+    width: 5%;
+  }
+  .admin-page table th:last-child,
+  .admin-page table td:last-child {
+    width: 15%;
+  }
+  
+  /* Responsividade simples */
+  @media (max-width: 768px) {
+    .admin-page {
+      padding: 1rem 2rem;
+    }
+    .grafico-container {
+      padding: 1rem;
+    }
+    .admin-page table th,
+    .admin-page table td {
+      padding: 8px 10px;
+      font-size: 0.85rem;
+    }
+  }

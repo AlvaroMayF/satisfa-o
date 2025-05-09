@@ -5,6 +5,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 import matplotlib.pyplot as plt
 import io
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from functools import wraps
 
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY', 'uma_string_bem_grande_e_difícil')
@@ -29,6 +30,27 @@ def format_datetime(value):
         return ''
     dt = datetime.strptime(value, "%Y-%m-%d %H:%M:%S")
     return dt.strftime("%d/%m/%Y %H:%M")
+
+
+# Decorador para proteger rotas de login (proteger a pesquisa)
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_logged_in' not in session:  # Se não estiver logado
+            return redirect(url_for('login'))  # Redireciona para o login
+        return f(*args, **kwargs)
+    return decorated_function
+
+
+# Decorador para proteger o painel de admin
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'admin_logged_in' not in session:  # Se o admin não estiver logado
+            return redirect(url_for('admin_login'))  # Redireciona para o login do admin
+        return f(*args, **kwargs)
+    return decorated_function
+
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -56,6 +78,7 @@ def login():
                     error = 'Você já respondeu à pesquisa.'
                 else:
                     conn.close()
+                    session['user_logged_in'] = True  # Marca o usuário como logado
                     return redirect(url_for('pesquisa', user_id=user['id']))  # Redireciona para o formulário de pesquisa
             else:
                 error = 'Dados inválidos.'
@@ -68,12 +91,16 @@ def login():
 
     return render_template('./login/login.html', error=error)
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 82b81fedf4cd6421fb496ca3aea60d008d492937
 @app.route('/pesquisa/<int:user_id>', methods=['GET', 'POST'])
+@login_required  # Protege a rota de pesquisa
 def pesquisa(user_id):
     if request.method == 'POST':
         respostas = [request.form.get(f'resposta{i}') for i in range(1, 12)]
 
-        # Usando o 'with' statement para garantir que a conexão seja fechada após a execução
         with get_db_connection() as conn:
             conn.execute(''' 
                 INSERT INTO respostas (
@@ -91,6 +118,7 @@ def pesquisa(user_id):
         return 'Obrigado por sua resposta!'
 
     return render_template('login/pesquisa.html', user_id=user_id)
+
 
 @app.route('/admin-login', methods=['GET', 'POST'])
 def admin_login():
@@ -117,11 +145,10 @@ def admin_login():
 
     return render_template('login/admin_login.html', error=error)
 
-@app.route('/admin')
-def admin():
-    if not session.get('admin_logged_in'):
-        return redirect(url_for('admin_login'))
 
+@app.route('/admin')
+@admin_required  # Protege a área de admin
+def admin():
     with get_db_connection() as conn:
         respostas = conn.execute(
             'SELECT * FROM respostas ORDER BY data_resposta DESC'
@@ -133,7 +160,7 @@ def admin():
             result = conn.execute(
                 f'SELECT AVG(CAST({coluna} AS FLOAT)) as media FROM respostas'
             ).fetchone()
-            medias.append(round(result[0], 2) if result[0] is not None else 0)  # Usando índice numérico
+            medias.append(round(result[0], 2) if result[0] is not None else 0)
 
         charts = []
         questions = conn.execute('SELECT * FROM form_questions ORDER BY order_index').fetchall()
@@ -171,6 +198,7 @@ def chart(chart_id):
     if not chart:
         return "Gráfico não encontrado", 404
     return send_file(chart['img'], mimetype='image/png')
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=10000)

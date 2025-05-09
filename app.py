@@ -1,5 +1,5 @@
-import os
 import sqlite3
+import os
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, session, flash, send_file
 import matplotlib.pyplot as plt
@@ -18,9 +18,10 @@ RH_CREDENTIALS = {
 }
 
 def get_db_connection():
-    conn = sqlite3.connect(DATABASE)
-    conn.row_factory = sqlite3.Row
+    conn = sqlite3.connect('survey.db')  # Ajuste o caminho do seu banco de dados aqui
+    conn.row_factory = sqlite3.Row  # Faz com que as linhas retornadas sejam dicionários
     return conn
+
 
 @app.template_filter('format_datetime')
 def format_datetime(value):
@@ -40,123 +41,133 @@ def login():
             error = 'Use somente números no campo CPF.'
             return render_template('./login/login.html', error=error)
 
+        # Abrir a conexão com o banco de dados
         conn = get_db_connection()
-        user = conn.execute(
-            'SELECT * FROM colaboradores WHERE cpf = ? AND data_nascimento = ?',
-            (cpf, data_nascimento)
-        ).fetchone()
 
-        if user:
-            if user['respondeu']:
-                error = 'Você já respondeu à pesquisa.'
+        try:
+            # Realizar consulta para verificar se o colaborador existe no banco
+            user = conn.execute(
+                'SELECT * FROM colaboradores WHERE cpf = ? AND data_nascimento = ?',
+                (cpf, data_nascimento)
+            ).fetchone()  # Isso retornará uma tupla ou None se não encontrar
+
+            if user:  # Verifica se o usuário foi encontrado
+                if user['respondeu']:  # Checa se o usuário já respondeu
+                    error = 'Você já respondeu à pesquisa.'
+                else:
+                    conn.close()
+                    return redirect(url_for('pesquisa', user_id=user['id']))  # Redireciona para o formulário de pesquisa
             else:
-                conn.close()
-                return redirect(url_for('pesquisa', user_id=user['id']))
-        else:
-            error = 'Dados inválidos.'
+                error = 'Dados inválidos.'
 
-        conn.close()
+        except Exception as e:
+            error = f'Ocorreu um erro: {e}'
+
+        finally:
+            conn.close()  # Fecha a conexão com o banco de dados
 
     return render_template('./login/login.html', error=error)
+
+
 
 @app.route('/pesquisa/<int:user_id>', methods=['GET', 'POST'])
 def pesquisa(user_id):
     if request.method == 'POST':
         respostas = [request.form.get(f'resposta{i}') for i in range(1, 12)]
 
-        conn = get_db_connection()
-        conn.execute(''' 
-            INSERT INTO respostas (
-                resposta1, resposta2, resposta3, resposta4, resposta5, resposta6,
-                resposta7, resposta8, resposta9, resposta10, resposta11
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ''', respostas)
+        # Usando o 'with' statement para garantir que a conexão seja fechada após a execução
+        with get_db_connection() as conn:
+            conn.execute(''' 
+                INSERT INTO respostas (
+                    resposta1, resposta2, resposta3, resposta4, resposta5, resposta6,
+                    resposta7, resposta8, resposta9, resposta10, resposta11
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ''', respostas)
 
-        conn.execute(
-            'UPDATE colaboradores SET respondeu = 1 WHERE id = ?',
-            (user_id,)
-        )
-        conn.commit()
-        conn.close()
+            conn.execute(
+                'UPDATE colaboradores SET respondeu = 1 WHERE id = ?',
+                (user_id,)
+            )
+            conn.commit()
+
         return 'Obrigado por sua resposta!'
 
     return render_template('login/pesquisa.html', user_id=user_id)
-
-# Lista de dois RH autorizados (CPF sem pontuação)
-RH_USERS = {
-    "12345678900": "1980-05-15",
-    "98765432100": "1975-10-30"
-}
 
 @app.route('/admin-login', methods=['GET', 'POST'])
 def admin_login():
     error = None
     if request.method == 'POST':
-        username = request.form.get('username', '').strip()  # Usar "username" ao invés de "cpf"
-        password = request.form.get('password', '').strip()  # Usar "password" ao invés de "data_nascimento"
+        username = request.form.get('username', '').strip()
+        password = request.form.get('password', '').strip()
 
-        # Validação de usuários e senhas
-        if username in RH_USERS and RH_USERS[username] == password:
-            session['admin_logged_in'] = True
-            return redirect(url_for('admin'))  # Redireciona para o painel de administração
-        else:
-            error = 'Usuário ou senha incorretos.'  # Mensagem de erro
+        with get_db_connection() as conn:
+            try:
+                user = conn.execute(
+                    'SELECT * FROM admins WHERE username = ? AND password = ?',
+                    (username, password)
+                ).fetchone()
+
+                if user:
+                    session['admin_logged_in'] = True
+                    return redirect(url_for('admin'))
+                else:
+                    error = 'Usuário ou senha incorretos.'
+
+            except Exception as e:
+                error = f'Ocorreu um erro: {str(e)}'
 
     return render_template('login/admin_login.html', error=error)
 
 @app.route('/admin')
 def admin():
     if not session.get('admin_logged_in'):
-        return redirect(url_for('admin_login'))  # Caso não esteja logado, redireciona para o login
+        return redirect(url_for('admin_login'))
 
-    conn = get_db_connection()
-    respostas = conn.execute(
-        'SELECT * FROM respostas ORDER BY data_resposta DESC'
-    ).fetchall()
-
-    medias = []
-    for i in range(1, 9):
-        coluna = f"resposta{i}"
-        result = conn.execute(
-            f'SELECT AVG(CAST({coluna} AS FLOAT)) as media FROM respostas'
-        ).fetchone()
-        medias.append(round(result['media'], 2) if result['media'] is not None else 0)
-
-    conn.close()
-
-    # Gerar gráficos de pizza
-    charts = []
-    questions = conn.execute('SELECT * FROM form_questions ORDER BY order_index').fetchall()
-    for q in questions:
-        opts = conn.execute(
-            'SELECT option_label, COUNT(ra.id) AS cnt '
-            'FROM form_options o '
-            'LEFT JOIN response_answers ra '
-            '  ON ra.question_id = o.question_id AND ra.answer = o.option_value '
-            'WHERE o.question_id = ? '
-            'GROUP BY o.id',
-            (q['id'],)
+    with get_db_connection() as conn:
+        respostas = conn.execute(
+            'SELECT * FROM respostas ORDER BY data_resposta DESC'
         ).fetchall()
 
-        labels = [o['option_label'] for o in opts]
-        values = [o['cnt'] for o in opts]
+        medias = []
+        for i in range(1, 9):
+            coluna = f"resposta{i}"
+            result = conn.execute(
+                f'SELECT AVG(CAST({coluna} AS FLOAT)) as media FROM respostas'
+            ).fetchone()
+            medias.append(round(result[0], 2) if result[0] is not None else 0)  # Usando índice numérico
 
-        # Criando o gráfico
-        fig, ax = plt.subplots()
-        ax.pie(values, labels=labels, autopct='%1.1f%%', startangle=90)
-        ax.axis('equal')  # Torna o gráfico circular
+        charts = []
+        questions = conn.execute('SELECT * FROM form_questions ORDER BY order_index').fetchall()
+        for q in questions:
+            opts = conn.execute(
+                'SELECT option_label, COUNT(ra.id) AS cnt '
+                'FROM form_options o '
+                'LEFT JOIN response_answers ra '
+                '  ON ra.question_id = o.question_id AND ra.answer = o.option_value '
+                'WHERE o.question_id = ? '
+                'GROUP BY o.id',
+                (q['id'],)
+            ).fetchall()
 
-        # Salvando a imagem do gráfico
-        img = io.BytesIO()
-        FigureCanvas(fig).print_png(img)
-        img.seek(0)
-        charts.append({
-            'id': q['id'],
-            'text': q['question_text'],
-            'img': img
-        })
+            labels = [o['option_label'] for o in opts]
+            values = [o['cnt'] for o in opts]
 
-    return render_template('admin.html', charts=charts, respostas=respostas, medias=medias)
+            fig, ax = plt.subplots()
+            ax.pie(values, labels=labels, autopct='%1.1f%%', startangle=90)
+            ax.axis('equal')
+
+            img = io.BytesIO()
+            FigureCanvas(fig).print_png(img)
+            img.seek(0)
+            charts.append({
+                'id': q['id'],
+                'text': q['question_text'],
+                'img': img
+            })
+
+    return render_template('login/admin.html', charts=charts, respostas=respostas, medias=medias)
+
 
 @app.route('/admin/chart/<int:chart_id>')
 def chart(chart_id):

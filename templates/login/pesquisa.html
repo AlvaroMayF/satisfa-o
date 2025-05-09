@@ -5,6 +5,19 @@
     <title>Pesquisa de Clima Organizacional</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='pesquisa.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='/img/favicon.ico') }}" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Função para mostrar o pop-up após o envio
+        function showThankYouPopup(event) {
+            event.preventDefault();  // Evita o refresh da página
+            // Exibe o pop-up de agradecimento
+            $("#thankYouPopup").show();
+            // Opcional: Submeter o formulário após exibir o pop-up (pode ser usado para processamento no backend)
+            setTimeout(function() {
+                $("form").submit();
+            }, 2000); // Envia o formulário após 2 segundos
+        }
+    </script>
 </head>
 <body class="pesquisa-page">
     <div class="pesquisa-container">
@@ -135,7 +148,7 @@
 
             <!-- Botão Enviar -->
             <div class="submit-block">
-                <button type="submit" class="btn">Enviar Respostas</button>
+                <button type="submit" class="btn" onclick="showThankYouPopup(event)">Enviar Respostas</button>
             </div>
         </form>
     </div>

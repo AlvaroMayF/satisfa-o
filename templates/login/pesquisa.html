@@ -1,143 +1,390 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <title>Pesquisa de Clima Organizacional</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='pesquisa.css') }}">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='/img/favicon.ico') }}" type="image/x-icon">
+  <meta charset="UTF-8">
+  <title>Pesquisa de Clima Organizacional</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='pesquisa.css') }}">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='/img/favicon.ico') }}" type="image/x-icon">
 </head>
 <body class="pesquisa-page">
-    <div class="pesquisa-container">
-        <!-- Banner e introdução geral -->
-        <div class="form-header">
-            <h2>Pesquisa de Clima Organizacional</h2>
-            <p class="intro">
-                Prezado colaborador,<br>
-                O preenchimento <strong>consciente e sincero</strong> da Pesquisa de Clima Organizacional é <strong>essencial</strong> para impulsionarmos juntos a excelência da nossa instituição. Esta ferramenta é o canal direto para captarmos suas percepções, anseios e desafios, que refletem não apenas no seu dia a dia, mas também na qualidade do atendimento aos nossos pacientes.
-            </p>
-            <p class="intro">
-                <strong>Por que sua participação faz a diferença?</strong><br>
-                ✓ Identifica oportunidades de melhoria concretas;<br>
-                ✓ Fortalece a transparência e a comunicação interna;<br>
-                ✓ Orienta a gestão na tomada de decisões alinhadas às suas necessidades;<br>
-                ✓ Promove um ambiente de trabalho mais saudável e produtivo para todos.
-            </p>
-            <p class="intro">
-                <strong>Dedique alguns minutos</strong> para responder com autenticidade – cada contribuição é um passo rumo a uma Rede Hospitalar Samar ainda melhor. Juntos, construímos o futuro da nossa equipe e da saúde que entregamos à sociedade!
-            </p>
-        </div>
-
-        <!-- Formulário para envio de respostas -->
-        <form method="POST">
-            <!-- Seção 1 -->
-            <div class="section">
-                <div class="section-header">
-                    <h3>Tempo de Empresa</h3>
-                    <p>
-                        Queremos celebrar sua jornada na Rede Hospitalar Samar. Há quanto tempo você faz parte dessa equipe incrível, dedicada a cuidar de vidas e transformar histórias? Conte pra gente e inspire outros com sua trajetória!
-                    </p>
-                </div>
-                <fieldset class="question-block">
-                    <legend>1. Há quanto tempo você trabalha na Rede Hospitalar Samar? <span class="required">*</span></legend>
-                    <label><input type="radio" name="resposta1" value="Menos de 12 meses" required> Menos de 12 meses</label>
-                    <label><input type="radio" name="resposta1" value="De 1 ano a 2 anos"> De 1 ano a 2 anos</label>
-                    <label><input type="radio" name="resposta1" value="De 3 anos a 4 anos"> De 3 anos a 4 anos</label>
-                    <label><input type="radio" name="resposta1" value="Acima de 5 anos"> Acima de 5 anos</label>
-                </fieldset>
-            </div>
-
-            <!-- Seção 2 -->
-            <div class="section">
-                <div class="section-header">
-                    <h3>Percepção Sobre a Empresa</h3>
-                    <p>
-                        Queremos saber a sua percepção sobre a Rede Hospitalar Samar. Sua opinião é fundamental para continuarmos crescendo e oferecendo um atendimento cada vez mais humano e de excelência. Compartilhe conosco e, juntos, vamos construir um futuro ainda mais inspirador na saúde!
-                    </p>
-                </div>
-                <fieldset class="question-block">
-                    <legend>2. Como você avalia seu nível de satisfação com o ambiente de trabalho da empresa? <span class="required">*</span></legend>
-                    <label><input type="radio" name="resposta2" value="Muito satisfeito" required> Muito satisfeito</label>
-                    <label><input type="radio" name="resposta2" value="Satisfeito"> Satisfeito</label>
-                    <label><input type="radio" name="resposta2" value="Insatisfeito"> Insatisfeito</label>
-                    <label><input type="radio" name="resposta2" value="Muito insatisfeito"> Muito insatisfeito</label>
-                </fieldset>
-                <fieldset class="question-block">
-                    <legend>3. Como você avalia seu nível de satisfação com a distribuição de tarefas? <span class="required">*</span></legend>
-                    <label><input type="radio" name="resposta3" value="Muito satisfeito" required> Muito satisfeito</label>
-                    <label><input type="radio" name="resposta3" value="Satisfeito"> Satisfeito</label>
-                    <label><input type="radio" name="resposta3" value="Insatisfeito"> Insatisfeito</label>
-                    <label><input type="radio" name="resposta3" value="Muito insatisfeito"> Muito insatisfeito</label>
-                </fieldset>
-                <fieldset class="question-block">
-                    <legend>4. Como você avalia seu nível de satisfação sobre seu trabalho ser importante para a empresa como um todo? <span class="required">*</span></legend>
-                    <label><input type="radio" name="resposta4" value="Muito satisfeito" required> Muito satisfeito</label>
-                    <label><input type="radio" name="resposta4" value="Satisfeito"> Satisfeito</label>
-                    <label><input type="radio" name="resposta4" value="Insatisfeito"> Insatisfeito</label>
-                    <label><input type="radio" name="resposta4" value="Muito insatisfeito"> Muito insatisfeito</label>
-                </fieldset>
-            </div>
-
-            <!-- Seção 3 -->
-            <div class="section">
-                <div class="section-header">
-                    <h3>Relacionamento no Trabalho</h3>
-                    <p>
-                        Queremos saber como está o seu relacionamento no ambiente de trabalho na Rede Hospitalar Samar. Sua experiência e conexão com a equipe são essenciais para fortalecermos juntos um ambiente acolhedor, colaborativo e cheio de energia positiva.
-                    </p>
-                </div>
-                <fieldset class="question-block">
-                    <legend>5. Como você avalia a cooperação entre os setores da empresa? <span class="required">*</span></legend>
-                    <label><input type="radio" name="resposta5" value="Muito satisfeito" required> Muito satisfeito</label>
-                    <label><input type="radio" name="resposta5" value="Satisfeito"> Satisfeito</label>
-                    <label><input type="radio" name="resposta5" value="Insatisfeito"> Insatisfeito</label>
-                    <label><input type="radio" name="resposta5" value="Muito insatisfeito"> Muito insatisfeito</label>
-                </fieldset>
-                <fieldset class="question-block">
-                    <legend>6. Como você avalia a relação de trabalho com os seus colegas? <span class="required">*</span></legend>
-                    <label><input type="radio" name="resposta6" value="Muito satisfeito" required> Muito satisfeito</label>
-                    <label><input type="radio" name="resposta6" value="Satisfeito"> Satisfeito</label>
-                    <label><input type="radio" name="resposta6" value="Insatisfeito"> Insatisfeito</label>
-                    <label><input type="radio" name="resposta6" value="Muito insatisfeito"> Muito insatisfeito</label>
-                </fieldset>
-                <fieldset class="question-block">
-                    <legend>7. Como você avalia o trabalho em equipe no seu setor? <span class="required">*</span></legend>
-                    <label><input type="radio" name="resposta7" value="Muito satisfeito" required> Muito satisfeito</label>
-                    <label><input type="radio" name="resposta7" value="Satisfeito"> Satisfeito</label>
-                    <label><input type="radio" name="resposta7" value="Insatisfeito"> Insatisfeito</label>
-                    <label><input type="radio" name="resposta7" value="Muito insatisfeito"> Muito insatisfeito</label>
-                </fieldset>
-                <fieldset class="question-block">
-                    <legend>8. Em geral, como você avalia o seu nível de motivação para vir trabalhar todos os dias? <span class="required">*</span></legend>
-                    <label><input type="radio" name="resposta8" value="Muito satisfeito" required> Muito satisfeito</label>
-                    <label><input type="radio" name="resposta8" value="Satisfeito"> Satisfeito</label>
-                    <label><input type="radio" name="resposta8" value="Insatisfeito"> Insatisfeito</label>
-                    <label><input type="radio" name="resposta8" value="Muito insatisfeito"> Muito insatisfeito</label>
-                </fieldset>
-            </div>
-
-            <!-- Seção 4 -->
-            <div class="section">
-                <div class="section-header">
-                    <h3>Relacionamento com a Chefia</h3>
-                    <p>
-                        Queremos saber como está o seu relacionamento com o seu líder imediato na Rede Hospitalar Samar. Essa parceria é essencial para fortalecer nossa equipe, promover um ambiente de trabalho acolhedor e alcançar resultados que transformam vidas.
-                    </p>
-                </div>
-                <fieldset class="question-block">
-                    <legend>9. O quanto você concorda com a afirmação: “Meu líder imediato me trata com respeito e consideração”? <span class="required">*</span></legend>
-                    <label><input type="radio" name="resposta9" value="Discordo totalmente" required> Discordo totalmente</label>
-                    <label><input type="radio" name="resposta9" value="Discordo parcialmente"> Discordo parcialmente</label>
-                    <label><input type="radio" name="resposta9" value="Neutro"> Neutro</label>
-                    <label><input type="radio" name="resposta9" value="Concordo parcialmente"> Concordo parcialmente</label>
-                    <label><input type="radio" name="resposta9" value="Concordo totalmente"> Concordo totalmente</label>
-                </fieldset>
-            </div>
-
-            <!-- Botão Enviar -->
-            <div class="submit-block">
-                <button type="submit" class="btn">Enviar Respostas</button>
-            </div>
-        </form>
+  <div class="pesquisa-container">
+    <!-- Banner e introdução geral -->
+    <div class="form-header">
+      <h2>Pesquisa de Clima Organizacional</h2>
+      <p class="intro">
+        Prezado colaborador,<br>
+        O preenchimento <strong>consciente e sincero</strong> da Pesquisa de Clima Organizacional é <strong>essencial</strong> para impulsionarmos juntos a excelência da nossa instituição. Esta ferramenta é o canal direto para captarmos suas percepções, anseios e desafios, que refletem não apenas no seu dia a dia, mas também na qualidade do atendimento aos nossos pacientes.
+      </p>
+      <p class="intro">
+        <strong>Por que sua participação faz a diferença?</strong><br>
+        ✓ Identifica oportunidades de melhoria concretas;<br>
+        ✓ Fortalece a transparência e a comunicação interna;<br>
+        ✓ Orienta a gestão na tomada de decisões alinhadas às suas necessidades;<br>
+        ✓ Promove um ambiente de trabalho mais saudável e produtivo para todos.
+      </p>
+      <p class="intro">
+        <strong>Dedique alguns minutos</strong> para responder com autenticidade – cada contribuição é um passo rumo a uma Rede Hospitalar Samar ainda melhor. Juntos, construímos o futuro da nossa equipe e da saúde que entregamos à sociedade!
+      </p>
     </div>
+
+    <form method="POST">
+      <!-- Seção 1: Tempo de Empresa -->
+      <div class="section">
+        <div class="section-header">
+          <h3>Tempo de Empresa</h3>
+          <p>
+            Queremos celebrar sua jornada na Rede Hospitalar Samar. Há quanto tempo você faz parte dessa equipe incrível, dedicada a cuidar de vidas e transformar histórias? Conte pra gente e inspire outros com sua trajetória!
+          </p>
+        </div>
+        <fieldset class="question-block">
+          <legend>1. Há quanto tempo você trabalha na Rede Hospitalar Samar? <span class="required">*</span></legend>
+          <label><input type="radio" name="resposta1" value="Menos de 12 meses" required> Menos de 12 meses</label>
+          <label><input type="radio" name="resposta1" value="De 1 ano a 2 anos"> De 1 ano a 2 anos</label>
+          <label><input type="radio" name="resposta1" value="De 3 anos a 4 anos"> De 3 anos a 4 anos</label>
+          <label><input type="radio" name="resposta1" value="Acima de 5 anos"> Acima de 5 anos</label>
+        </fieldset>
+      </div>
+
+      <!-- Seção 2: Percepção Sobre a Empresa -->
+      <div class="section">
+        <div class="section-header">
+          <h3>Percepção Sobre a Empresa</h3>
+          <p>
+            Queremos saber a sua percepção sobre a Rede Hospitalar Samar. Sua opinião é fundamental para continuarmos crescendo e oferecendo um atendimento cada vez mais humano e de excelência. Compartilhe conosco e, juntos, vamos construir um futuro ainda mais inspirador na saúde!
+          </p>
+        </div>
+        <fieldset class="question-block">
+          <legend>2. Como você avalia seu nível de satisfação com o ambiente de trabalho da empresa? <span class="required">*</span></legend>
+          <label><input type="radio" name="resposta2" value="Muito satisfeito" required> Muito satisfeito</label>
+          <label><input type="radio" name="resposta2" value="Satisfeito"> Satisfeito</label>
+          <label><input type="radio" name="resposta2" value="Insatisfeito"> Insatisfeito</label>
+          <label><input type="radio" name="resposta2" value="Muito insatisfeito"> Muito insatisfeito</label>
+        </fieldset>
+        <fieldset class="question-block">
+          <legend>3. Como você avalia seu nível de satisfação com a distribuição de tarefas? <span class="required">*</span></legend>
+          <label><input type="radio" name="resposta3" value="Muito satisfeito" required> Muito satisfeito</label>
+          <label><input type="radio" name="resposta3" value="Satisfeito"> Satisfeito</label>
+          <label><input type="radio" name="resposta3" value="Insatisfeito"> Insatisfeito</label>
+          <label><input type="radio" name="resposta3" value="Muito insatisfeito"> Muito insatisfeito</label>
+        </fieldset>
+        <fieldset class="question-block">
+          <legend>4. Como você avalia seu nível de satisfação sobre seu trabalho ser importante para a empresa como um todo? <span class="required">*</span></legend>
+          <label><input type="radio" name="resposta4" value="Muito satisfeito" required> Muito satisfeito</label>
+          <label><input type="radio" name="resposta4" value="Satisfeito"> Satisfeito</label>
+          <label><input type="radio" name="resposta4" value="Insatisfeito"> Insatisfeito</label>
+          <label><input type="radio" name="resposta4" value="Muito insatisfeito"> Muito insatisfeito</label>
+        </fieldset>
+        <fieldset class="question-block">
+          <legend>5. Como você avalia se a empresa é um bom ambiente para trabalhar? <span class="required">*</span></legend>
+          <label><input type="radio" name="resposta5" value="Muito satisfeito" required> Muito satisfeito</label>
+          <label><input type="radio" name="resposta5" value="Satisfeito"> Satisfeito</label>
+          <label><input type="radio" name="resposta5" value="Insatisfeito"> Insatisfeito</label>
+          <label><input type="radio" name="resposta5" value="Muito insatisfeito"> Muito insatisfeito</label>
+        </fieldset>
+      </div>
+
+      <!-- Seção 3: Relacionamento no Trabalho -->
+      <div class="section">
+        <div class="section-header">
+          <h3>Relacionamento no Trabalho</h3>
+          <p>
+            Queremos saber como está o seu relacionamento no ambiente de trabalho na Rede Hospitalar Samar. Sua experiência e conexão com a equipe são essenciais para fortalecermos juntos um ambiente acolhedor, colaborativo e cheio de energia positiva.
+          </p>
+        </div>
+        <fieldset class="question-block">
+          <legend>6. Como você avalia a cooperação entre os setores da empresa? <span class="required">*</span></legend>
+          <label><input type="radio" name="resposta6" value="Muito satisfeito" required> Muito satisfeito</label>
+          <label><input type="radio" name="resposta6" value="Satisfeito"> Satisfeito</label>
+          <label><input type="radio" name="resposta6" value="Insatisfeito"> Insatisfeito</label>
+          <label><input type="radio" name="resposta6" value="Muito insatisfeito"> Muito insatisfeito</label>
+        </fieldset>
+        <fieldset class="question-block">
+          <legend>7. Como você avalia a relação de trabalho com os seus colegas? <span class="required">*</span></legend>
+          <label><input type="radio" name="resposta7" value="Muito satisfeito" required> Muito satisfeito</label>
+          <label><input type="radio" name="resposta7" value="Satisfeito"> Satisfeito</label>
+          <label><input type="radio" name="resposta7" value="Insatisfeito"> Insatisfeito</label>
+          <label><input type="radio" name="resposta7" value="Muito insatisfeito"> Muito insatisfeito</label>
+        </fieldset>
+        <fieldset class="question-block">
+          <legend>8. Como você avalia o trabalho em equipe no seu setor? <span class="required">*</span></legend>
+          <label><input type="radio" name="resposta8" value="Muito satisfeito" required> Muito satisfeito</label>
+          <label><input type="radio" name="resposta8" value="Satisfeito"> Satisfeito</label>
+          <label><input type="radio" name="resposta8" value="Insatisfeito"> Insatisfeito</label>
+          <label><input type="radio" name="resposta8" value="Muito insatisfeito"> Muito insatisfeito</label>
+        </fieldset>
+        <fieldset class="question-block">
+          <legend>9. Em geral, como você avalia o seu nível de motivação para vir trabalhar todos os dias? <span class="required">*</span></legend>
+          <label><input type="radio" name="resposta9" value="Muito satisfeito" required> Muito satisfeito</label>
+          <label><input type="radio" name="resposta9" value="Satisfeito"> Satisfeito</label>
+          <label><input type="radio" name="resposta9" value="Insatisfeito"> Insatisfeito</label>
+          <label><input type="radio" name="resposta9" value="Muito insatisfeito"> Muito insatisfeito</label>
+        </fieldset>
+      </div>
+
+      <!-- Seção 4: Relacionamento com a Chefia -->
+      <div class="section">
+        <div class="section-header">
+          <h3>Relacionamento com a Chefia</h3>
+          <p>
+            Queremos saber como está o seu relacionamento com o seu líder imediato na Rede Hospitalar Samar. Essa parceria é essencial para fortalecer nossa equipe, promover um ambiente de trabalho acolhedor e alcançar resultados que transformam vidas.
+          </p>
+        </div>
+        <fieldset class="question-block">
+          <legend>10. O quanto você concorda com a afirmação: “Meu líder imediato me trata com respeito e consideração”? <span class="required">*</span></legend>
+          <label><input type="radio" name="resposta10" value="Discordo totalmente" required> Discordo totalmente</label>
+          <label><input type="radio" name="resposta10" value="Discordo parcialmente"> Discordo parcialmente</label>
+          <label><input type="radio" name="resposta10" value="Neutro"> Neutro</label>
+          <label><input type="radio" name="resposta10" value="Concordo parcialmente"> Concordo parcialmente</label>
+          <label><input type="radio" name="resposta10" value="Concordo totalmente"> Concordo totalmente</label>
+        </fieldset>
+        <fieldset class="question-block">
+          <legend>11. Como você avalia o acompanhamento do seu líder imediato em relação aos seus resultados profissionais e desenvolvimento? <span class="required">*</span></legend>
+          <label><input type="radio" name="resposta11" value="Muito satisfeito" required> Muito satisfeito</label>
+          <label><input type="radio" name="resposta11" value="Satisfeito"> Satisfeito</label>
+          <label><input type="radio" name="resposta11" value="Insatisfeito"> Insatisfeito</label>
+          <label><input type="radio" name="resposta11" value="Muito insatisfeito"> Muito insatisfeito</label>
+        </fieldset>
+        <fieldset class="question-block">
+          <legend>12. Como você avalia seu nível de autonomia em relação às sugestões de novas ideias e soluções para seus superiores? <span class="required">*</span></legend>
+          <label><input type="radio" name="resposta12" value="Muito satisfeito" required> Muito satisfeito</label>
+          <label><input type="radio" name="resposta12" value="Satisfeito"> Satisfeito</label>
+          <label><input type="radio" name="resposta12" value="Insatisfeito"> Insatisfeito</label>
+          <label><input type="radio" name="resposta12" value="Muito insatisfeito"> Muito insatisfeito</label>
+        </fieldset>
+        <fieldset class="question-block">
+          <legend>13. Como você avalia o apoio dado pelo seu líder imediato em fazer o seu melhor todos os dias? <span class="required">*</span></legend>
+          <label><input type="radio" name="resposta13" value="Muito satisfeito" required> Muito satisfeito</label>
+          <label><input type="radio" name="resposta13" value="Satisfeito"> Satisfeito</label>
+          <label><input type="radio" name="resposta13" value="Insatisfeito"> Insatisfeito</label>
+          <label><input type="radio" name="resposta13" value="Muito insatisfeito"> Muito insatisfeito</label>
+        </fieldset>
+        <fieldset class="question-block">
+          <legend>14. Você recebe feedback com que frequência? <span class="required">*</span></legend>
+          <label><input type="radio" name="resposta14" value="Diariamente" required> Diariamente</label>
+          <label><input type="radio" name="resposta14" value="Semanalmente"> Semanalmente</label>
+          <label><input type="radio" name="resposta14" value="Mensalmente"> Mensalmente</label>
+          <label><input type="radio" name="resposta14" value="Semestralmente"> Semestralmente</label>
+          <label><input type="radio" name="resposta14" value="Raramente"> Raramente</label>
+          <label><input type="radio" name="resposta14" value="Nunca"> Nunca</label>
+        </fieldset>
+      </div>
+
+      <!-- Seção 5: Comunicação no Trabalho -->
+      <div class="section">
+        <div class="section-header">
+          <h3>Comunicação no Trabalho</h3>
+          <p>
+            Queremos saber como você avalia a nossa comunicação na Rede Hospitalar Samar. Sua opinião é crucial para fortalecermos a conexão entre todos, garantindo um ambiente transparente, colaborativo e cheio de sinergia. Compartilhe conosco e vamos juntos construir uma comunicação que inspire, una e potencialize o nosso trabalho em equipe!
+          </p>
+        </div>
+        <fieldset class="question-block">
+          <legend>15. Em geral, como você avalia a clareza e objetividade das comunicações internas na Rede Hospitalar Samar? <span class="required">*</span></legend>
+          <label><input type="radio" name="resposta15" value="Muito satisfeito" required> Muito satisfeito</label>
+          <label><input type="radio" name="resposta15" value="Satisfeito"> Satisfeito</label>
+          <label><input type="radio" name="resposta15" value="Insatisfeito"> Insatisfeito</label>
+          <label><input type="radio" name="resposta15" value="Muito insatisfeito"> Muito insatisfeito</label>
+        </fieldset>
+        <fieldset class="question-block">
+          <legend>16. Como você avalia seu nível de entendimento quando recebe informações sobre seu trabalho, mudanças, elogios ou críticas? <span class="required">*</span></legend>
+          <label><input type="radio" name="resposta16" value="Muito satisfeito" required> Muito satisfeito</label>
+          <label><input type="radio" name="resposta16" value="Satisfeito"> Satisfeito</label>
+          <label><input type="radio" name="resposta16" value="Insatisfeito"> Insatisfeito</label>
+          <label><input type="radio" name="resposta16" value="Muito insatisfeito"> Muito insatisfeito</label>
+        </fieldset>
+        <fieldset class="question-block">
+          <legend>17. A comunicação do seu líder imediato ocorre de forma clara e objetiva? <span class="required">*</span></legend>
+          <label><input type="radio" name="resposta17" value="Muito satisfeito" required> Muito satisfeito</label>
+          <label><input type="radio" name="resposta17" value="Satisfeito"> Satisfeito</label>
+          <label><input type="radio" name="resposta17" value="Insatisfeito"> Insatisfeito</label>
+          <label><input type="radio" name="resposta17" value="Muito insatisfeito"> Muito insatisfeito</label>
+        </fieldset>
+        <fieldset class="question-block">
+          <legend>18. Como você avalia seu nível de satisfação das orientações recebidas no seu primeiro dia de trabalho? <span class="required">*</span></legend>
+          <label><input type="radio" name="resposta18" value="Muito satisfeito" required> Muito satisfeito</label>
+          <label><input type="radio" name="resposta18" value="Satisfeito"> Satisfeito</label>
+          <label><input type="radio" name="resposta18" value="Insatisfeito"> Insatisfeito</label>
+          <label><input type="radio" name="resposta18" value="Muito insatisfeito"> Muito insatisfeito</label>
+        </fieldset>
+        <fieldset class="question-block">
+          <legend>19. Você considera que a comunicação sobre as políticas e diretrizes da empresa é clara e acessível? <span class="required">*</span></legend>
+          <label><input type="radio" name="resposta19" value="Muito satisfeito" required> Muito satisfeito</label>
+          <label><input type="radio" name="resposta19" value="Satisfeito"> Satisfeito</label>
+          <label><input type="radio" name="resposta19" value="Insatisfeito"> Insatisfeito</label>
+          <label><input type="radio" name="resposta19" value="Muito insatisfeito"> Muito insatisfeito</label>
+        </fieldset>
+      </div>
+
+      <!-- Seção 6: Estrutura no Ambiente de Trabalho -->
+      <div class="section">
+        <div class="section-header">
+          <h3>Estrutura no Ambiente de Trabalho</h3>
+          <p>
+            Queremos saber o que você acha do nosso ambiente de trabalho na Rede Hospitalar Samar. Sua percepção é a chave para criarmos um espaço ainda mais acolhedor, motivador e cheio de energia positiva. Compartilhe conosco e vamos juntos transformar nosso dia a dia em um ambiente onde todos se sintam valorizados, inspirados e prontos para fazer a diferença!
+          </p>
+        </div>
+        <fieldset class="question-block">
+          <legend>20. Como você avalia a limpeza, iluminação e instalações necessárias na área onde você executa suas atividades da função? <span class="required">*</span></legend>
+          <label><input type="radio" name="resposta20" value="Muito satisfeito" required> Muito satisfeito</label>
+          <label><input type="radio" name="resposta20" value="Satisfeito"> Satisfeito</label>
+          <label><input type="radio" name="resposta20" value="Insatisfeito"> Insatisfeito</label>
+          <label><input type="radio" name="resposta20" value="Muito insatisfeito"> Muito insatisfeito</label>
+        </fieldset>
+        <fieldset class="question-block">
+          <legend>21. Como você avalia os materiais e equipamentos que estão à sua disposição para desempenhar um bom trabalho? <span class="required">*</span></legend>
+          <label><input type="radio" name="resposta21" value="Muito satisfeito" required> Muito satisfeito</label>
+          <label><input type="radio" name="resposta21" value="Satisfeito"> Satisfeito</label>
+          <label><input type="radio" name="resposta21" value="Insatisfeito"> Insatisfeito</label>
+          <label><input type="radio" name="resposta21" value="Muito insatisfeito"> Muito insatisfeito</label>
+        </fieldset>
+      </div>
+
+      <!-- Seção 7: Política Salarial e Benefícios -->
+      <div class="section">
+        <div class="section-header">
+          <h3>Política Salarial e Benefícios</h3>
+          <p>
+            Queremos saber a sua percepção sobre a política salarial e benefícios da Rede Hospitalar Samar. Sua opinião é essencial para garantirmos que todos se sintam valorizados e reconhecidos pelo incrível trabalho que realizam. Compartilhe conosco e vamos juntos construir um ambiente onde o crescimento profissional e o bem-estar de cada colaborador sejam prioridades!
+          </p>
+        </div>
+        <fieldset class="question-block">
+          <legend>22. Como você avalia o seu nível de satisfação com a sua remuneração? <span class="required">*</span></legend>
+          <label><input type="radio" name="resposta22" value="Muito satisfeito" required> Muito satisfeito</label>
+          <label><input type="radio" name="resposta22" value="Satisfeito"> Satisfeito</label>
+          <label><input type="radio" name="resposta22" value="Insatisfeito"> Insatisfeito</label>
+          <label><input type="radio" name="resposta22" value="Muito insatisfeito"> Muito insatisfeito</label>
+        </fieldset>
+        <fieldset class="question-block">
+          <legend>23. Como você avalia o seu nível de satisfação com os benefícios que você recebe da empresa? <span class="required">*</span></legend>
+          <label><input type="radio" name="resposta23" value="Muito satisfeito" required> Muito satisfeito</label>
+          <label><input type="radio" name="resposta23" value="Satisfeito"> Satisfeito</label>
+          <label><input type="radio" name="resposta23" value="Insatisfeito"> Insatisfeito</label>
+          <label><input type="radio" name="resposta23" value="Muito insatisfeito"> Muito insatisfeito</label>
+        </fieldset>
+      </div>
+
+      <!-- Seção 8: Outros Temas -->
+      <div class="section">
+        <div class="section-header">
+          <h3>Outros Temas</h3>
+          <p>
+            Queremos ouvir você sobre outros temas ligados à Rede Hospitalar Samar. Sua voz é fundamental para inspirar melhorias, fortalecer nossa equipe e construir um futuro ainda mais brilhante. Compartilhe suas ideias, sugestões e percepções – juntos, podemos transformar desafios em oportunidades e seguir fazendo a diferença na saúde e no cuidado com as pessoas!
+          </p>
+        </div>
+        <fieldset class="question-block">
+          <legend>24. Você recomendaria a Rede Hospitalar Samar como uma boa empresa para se trabalhar? <span class="required">*</span></legend>
+          <label><input type="radio" name="resposta24" value="Sim" required> Sim</label>
+          <label><input type="radio" name="resposta24" value="Não"> Não</label>
+        </fieldset>
+        <fieldset class="question-block">
+          <legend>25. Qual dos motivos abaixo o levaria a deixar a Empresa? <span class="required">*</span></legend>
+          <label><input type="radio" name="resposta25" value="Ambiente de trabalho estressante" required> Ambiente de trabalho estressante</label>
+          <label><input type="radio" name="resposta25" value="Relacionamento insatisfatório com a liderança"> Relacionamento insatisfatório com a liderança</label>
+          <label><input type="radio" name="resposta25" value="Falta de crescimento profissional"> Falta de crescimento profissional</label>
+          <label><input type="radio" name="resposta25" value="Salário e benefícios não atrativos"> Salário e benefícios não atrativos</label>
+          <label><input type="radio" name="resposta25" value="Outros motivos"> Outros motivos</label>
+        </fieldset>
+        <fieldset class="question-block">
+          <legend>26. Você acredita que a Rede Hospitalar Samar é uma empresa inclusiva para pessoas de diferentes gêneros e culturas? <span class="required">*</span></legend>
+          <label><input type="radio" name="resposta26" value="Concordo" required> Concordo</label>
+          <label><input type="radio" name="resposta26" value="Concordo em parte"> Concordo em parte</label>
+          <label><input type="radio" name="resposta26" value="Discordo em parte"> Discordo em parte</label>
+          <label><input type="radio" name="resposta26" value="Discordo"> Discordo</label>
+        </fieldset>
+      </div>
+
+     <div class="section">
+        <div class="section-header">
+          <h3>Sobre a Reestruturação e Mudanças</h3>
+          <p>
+            Gostaríamos de saber sua opinião sobre as mudanças e reestruturações realizadas pela TCP. Sua avaliação é essencial para entendermos o impacto dessas ações no dia a dia e identificar pontos de melhoria.
+          </p>
+        </div>
+        <fieldset class="question-block">
+          <legend>27. Como você avalia as mudanças implementadas pela consultoria TCP nos últimos dois anos? <span class="required">*</span></legend>
+          <label><input type="radio" name="resposta27" value="Positivas" required> Positivas</label>
+          <label><input type="radio" name="resposta27" value="Neutras"> Neutras</label>
+          <label><input type="radio" name="resposta27" value="Negativas"> Negativas</label>
+          <label><input type="radio" name="resposta27" value="Não sei opinar"> Não sei opinar</label>
+        </fieldset>
+        <fieldset class="question-block">
+          <legend>28. As mudanças trouxeram melhorias significativas para o seu setor ou área de atuação? <span class="required">*</span></legend>
+          <label><input type="radio" name="resposta28" value="Sim, muitas melhorias" required> Sim, muitas melhorias</label>
+          <label><input type="radio" name="resposta28" value="Sim, algumas melhorias"> Sim, algumas melhorias</label>
+          <label><input type="radio" name="resposta28" value="Não percebo melhorias"> Não percebo melhorias</label>
+          <label><input type="radio" name="resposta28" value="As mudanças trouxeram mais problemas"> As mudanças trouxeram mais problemas</label>
+        </fieldset>
+      </div>
+
+      <!-- Seção 10: Comunicação e Transparência -->
+      <div class="section">
+        <div class="section-header">
+          <h3>Sobre Comunicação e Transparência</h3>
+          <p>
+            Acreditamos que uma comunicação clara e transparente é essencial para o sucesso das mudanças e reestruturações. Queremos saber sua opinião sobre como a TCP tem se comunicado durante esse processo.
+          </p>
+        </div>
+        <fieldset class="question-block">
+          <legend>29. A comunicação sobre as mudanças durante a reestruturação foi clara e eficiente? <span class="required">*</span></legend>
+          <label><input type="radio" name="resposta29" value="Sim, sempre clara e transparente" required> Sim, sempre clara e transparente</label>
+          <label><input type="radio" name="resposta29" value="Em parte, algumas informações foram confusas"> Em parte, algumas informações foram confusas</label>
+          <label><input type="radio" name="resposta29" value="Não, a comunicação foi insuficiente"> Não, a comunicação foi insuficiente</label>
+          <label><input type="radio" name="resposta29" value="Não houve comunicação adequada"> Não houve comunicação adequada</label>
+        </fieldset>
+        <fieldset class="question-block">
+          <legend>30. Você se sente informado sobre os objetivos e os resultados esperados da reestruturação? <span class="required">*</span></legend>
+          <label><input type="radio" name="resposta30" value="Sim, totalmente" required> Sim, totalmente</label>
+          <label><input type="radio" name="resposta30" value="Em parte"> Em parte</label>
+          <label><input type="radio" name="resposta30" value="Não, sinto falta de informações"> Não, sinto falta de informações</label>
+          <label><input type="radio" name="resposta30" value="Não tenho conhecimento sobre os objetivos"> Não tenho conhecimento sobre os objetivos</label>
+        </fieldset>
+      </div>
+
+      <!-- Seção 11: Suporte e Treinamento -->
+      <div class="section">
+        <div class="section-header">
+          <h3>Sobre Suporte e Treinamento</h3>
+          <p>
+            Para garantir que todos estejam preparados para as mudanças e reestruturações, é fundamental oferecer suporte e treinamento adequados. Queremos ouvir sua opinião sobre esse tema.
+          </p>
+        </div>
+        <fieldset class="question-block">
+          <legend>31. Você recebeu treinamento adequado para se adaptar às novas práticas e processos? <span class="required">*</span></legend>
+          <label><input type="radio" name="resposta31" value="Sim, totalmente" required> Sim, totalmente</label>
+          <label><input type="radio" name="resposta31" value="Em parte"> Em parte</label>
+          <label><input type="radio" name="resposta31" value="Não, sinto falta de treinamento"> Não, sinto falta de treinamento</label>
+          <label><input type="radio" name="resposta31" value="Não recebi nenhum treinamento"> Não recebi nenhum treinamento</label>
+        </fieldset>
+        <fieldset class="question-block">
+          <legend>32. Você se sente preparado para lidar com as novas práticas e processos implementados? <span class="required">*</span></legend>
+          <label><input type="radio" name="resposta32" value="Sim, totalmente" required> Sim, totalmente</label>
+          <label><input type="radio" name="resposta32" value="Em parte"> Em parte</label>
+          <label><input type="radio" name="resposta32" value="Não, sinto falta de treinamento"> Não, sinto falta de treinamento</label>
+          <label><input type="radio" name="resposta32" value="Não recebi nenhum treinamento"> Não recebi nenhum treinamento</label>
+        </fieldset>
+      </div>
+
+      <!-- Seção 12: Ideias e Sugestões TCP -->
+      <div class="section">
+        <fieldset class="question-block">
+          <legend>33. Na sua concepção, o que a Rede Hospitalar Samar pode fazer para motivar os seus colaboradores? <span class="required">*</span></legend>
+          <textarea name="resposta33" rows="5" required placeholder="Escreva aqui sua sugestão..."></textarea>
+        </fieldset>
+      </div>
+
+      <!-- Seção 13: Agradecimento TCP -->
+      <div class="section">
+        <div class="section-header">
+          <p>
+            Muito obrigado por dedicar seu tempo e preencher a pesquisa de clima organizacional. Sua contribuição é essencial para construirmos um ambiente de trabalho cada vez mais acolhedor, motivador e alinhado com as necessidades de todos. Juntos, estamos transformando a Rede Hospitalar Samar em um lugar onde todos se sintam valorizados e inspirados a crescer!
+          </p>
+        </div>
+      </div>
+
+      <!-- Botão Enviar -->
+      <div class="submit-block">
+        <button type="submit" class="btn">Enviar Respostas</button>
+      </div>
+    </form>
+  </div>
 </body>
 </html>

@@ -386,5 +386,30 @@
       </div>
     </form>
   </div>
+    <div id="submitModal" class="modal">
+    <div class="modal-content">
+      <p>Obrigado por enviar sua pesquisa!<br>Você será redirecionado para a página de login.</p>
+      <button id="modalOk">OK</button>
+    </div>
+  </div>
+
+  <!-- Script que aciona o modal e faz o redirect -->
+  <script>
+    const form = document.querySelector('.pesquisa-container form');
+    const modal = document.getElementById('submitModal');
+    const okBtn = document.getElementById('modalOk');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();              // interrompe o envio imediato
+      modal.style.display = 'block';   // mostra o modal
+    });
+
+    okBtn.addEventListener('click', function() {
+      // Redireciona para a rota de login
+      window.location.href = "{{ url_for('login') }}";
+    });
+  </script>
+</body>
+</html>
 </body>
 </html>

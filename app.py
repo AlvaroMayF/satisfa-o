@@ -71,38 +71,32 @@ def login():
 
     return render_template('./login/login.html', error=error)
 
+
 @app.route('/pesquisa/<int:user_id>', methods=['GET', 'POST'])
 def pesquisa(user_id):
     if request.method == 'POST':
-        # Captura as respostas dos campos 'resposta1', 'resposta2', ..., 'resposta10'
-        respostas = [request.form.get(f'resposta{i}') for i in range(1, 11)]  # A alteração aqui, de resposta9 para resposta10
+        respostas = [request.form.get(f'resposta{i}') for i in range(1, 12)]  # Obtém as respostas das perguntas
 
-        # Verifica se todas as respostas foram preenchidas
-        if not all(respostas):
-            flash('Por favor, responda todas as perguntas.')
-            return redirect(url_for('pesquisa', user_id=user_id))  # Redireciona de volta para a pesquisa
-
-        # Abre a conexão com o banco de dados e insere as respostas
         with get_db_connection() as conn:
+            # Inserção das respostas na tabela de respostas
             conn.execute('''
-                INSERT INTO respostas (
-                    resposta1, resposta2, resposta3, resposta4, resposta5, resposta6,
-                    resposta7, resposta8, resposta9, resposta10
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO respostas (resposta1, resposta2, resposta3, resposta4, resposta5, resposta6,
+                                       resposta7, resposta8, resposta9, resposta10, resposta11)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ''', respostas)
 
-            # Atualiza a tabela de colaboradores para indicar que ele já respondeu
+            # Atualiza a tabela de colaboradores para indicar que o colaborador já respondeu
             conn.execute(
                 'UPDATE colaboradores SET respondeu = 1 WHERE id = ?',
                 (user_id,)
             )
-            conn.commit()
+            conn.commit()  # Confirma as alterações no banco de dados
 
-        return redirect(url_for('pesquisa_concluida'))  # Redireciona para a página de "Obrigado"
+        # Retorna uma mensagem ou uma nova página após o envio do formulário
+        return render_template('login/login.html')  # Crie esta página de agradecimento com um pop-up se desejar
 
+    # Se a requisição for GET, apenas renderiza a página de pesquisa
     return render_template('login/pesquisa.html', user_id=user_id)
-
-
 
 
 
@@ -186,6 +180,7 @@ def chart(chart_id):
     if not chart:
         return "Gráfico não encontrado", 404
     return send_file(chart['img'], mimetype='image/png')
+
 
 
 if __name__ == '__main__':

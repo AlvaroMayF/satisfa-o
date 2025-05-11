@@ -1,51 +1,45 @@
+import os
 import pandas as pd
 import sqlite3
-import os
 
-
-def inserir_no_banco(planilha):
-    conn = sqlite3.connect('survey.db')
-    cursor = conn.cursor()
-
-    for index, row in planilha.iterrows():
-        # Garantir formato de data
-        data_nascimento = row['data_de_nascimento']
-        if isinstance(data_nascimento, pd.Timestamp):
-            data_nascimento = data_nascimento.strftime('%Y-%m-%d')
-
-        # Limpar CPF: manter só os números
-        cpf = ''.join(filter(str.isdigit, str(row['cpf'])))
-
-        # Inserir no banco
-        cursor.execute('''
-            INSERT INTO colaboradores (nome, cpf, data_nascimento, funcao_inicial)
-            VALUES (?, ?, ?, ?)
-        ''', (row['nome'], cpf, data_nascimento, row['funcao_inicial']))
-
-    conn.commit()
-    conn.close()
-    print("Dados inseridos com sucesso!")
-
-
-def importar_planilha(caminho_arquivo):
+def importar_colaboradores(caminho_arquivo: str):
     if not os.path.exists(caminho_arquivo):
         print(f"Arquivo não encontrado: {caminho_arquivo}")
         return
 
-    # Carregar planilha
-    planilha = pd.read_excel(caminho_arquivo)
+    # 1) lê a planilha
+    df = pd.read_excel(caminho_arquivo)
+    df.columns = [col.strip().lower().replace(" ", "_") for col in df.columns]
 
-    # Normalizar nomes das colunas
-    planilha.columns = [col.strip().lower().replace(" ", "_") for col in planilha.columns]
+    # 2) formata data e cpf
+    if 'data_de_nascimento' in df.columns:
+        df['data_de_nascimento'] = pd.to_datetime(
+            df['data_de_nascimento'], errors='coerce'
+        ).dt.strftime('%Y-%m-%d')
+    df['cpf'] = df['cpf'].astype(str).str.replace(r'\D+', '', regex=True)
 
-    # Converter datas
-    if 'data_de_nascimento' in planilha.columns:
-        planilha['data_de_nascimento'] = pd.to_datetime(planilha['data_de_nascimento'], errors='coerce')
+    # 3) insere no banco
+    conn = sqlite3.connect('survey.db')
+    cursor = conn.cursor()
 
-    print(planilha.head())  # Verificação
-    inserir_no_banco(planilha)
+    for _, row in df.iterrows():
+        nome = row.get('nome', '').strip()
+        cpf  = row.get('cpf', '')
+        data_nascimento = row.get('data_de_nascimento', None)
+        email  = row.get('email', '').strip()   # caso exista
+        cargo  = row.get('funcao_inicial', '').strip()
+        setor  = row.get('setor', '').strip()   # caso exista
 
+        cursor.execute('''
+            INSERT OR IGNORE INTO colaboradores
+              (nome, cpf, data_nascimento, email, cargo, setor)
+            VALUES (?, ?, ?, ?, ?, ?)
+        ''', (nome, cpf, data_nascimento, email, cargo, setor))
+
+    conn.commit()
+    conn.close()
+    print("Colaboradores importados com sucesso!")
 
 if __name__ == "__main__":
-    caminho_arquivo = os.path.join(os.getcwd(), 'planilha_colaboradores.xlsx')
-    importar_planilha(caminho_arquivo)
+    caminho = os.path.join(os.getcwd(), 'planilha_colaboradores.xlsx')
+    importar_colaboradores(caminho)

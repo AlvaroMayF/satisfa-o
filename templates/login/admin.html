@@ -7,8 +7,6 @@
     <title>Painel de Respostas</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='/img/favicon.ico') }}" type="image/x-icon">
-    <!-- Chart.js CDN para o gráfico de médias -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body >
   <div class="navbar">
@@ -16,82 +14,10 @@
         <li class="navbar-item">Inicio</li>
         <li class="navbar-item">Usuário</li>
         <li class="navbar-item">Pesquisa</li>
-        <li class="navbar-item">Analitico</li>
+        <li class="navbar-item"><a href="{{ url_for('analitico') }}">Analítico</a></li>
       </ul>
   </div>
   <div class="admin-page">
     <h2>Painel de Respostas</h2>
-
-    <!-- Gráfico das médias (questões 1–8) -->
-    <div class="grafico-container">
-        <canvas id="graficoMedia"></canvas>
-    </div>
-
-    <!-- Tabela com todas as respostas -->
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Data Resposta</th>
-                <th>Q1</th>
-                <th>Q2</th>
-                <th>Q3</th>
-                <th>Q4</th>
-                <th>Q5</th>
-                <th>Q6</th>
-                <th>Q7</th>
-                <th>Q8</th>
-                <th>Q9</th>
-                <th>Q10</th>
-                <th>Q11</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for resp in respostas %}
-            <tr>
-                <td>{{ resp['id'] }}</td>
-                <td>{{ resp['data_resposta']|format_datetime }}</td>
-                <td>{{ resp['resposta1'] }}</td>
-                <td>{{ resp['resposta2'] }}</td>
-                <td>{{ resp['resposta3'] }}</td>
-                <td>{{ resp['resposta4'] }}</td>
-                <td>{{ resp['resposta5'] }}</td>
-                <td>{{ resp['resposta6'] }}</td>
-                <td>{{ resp['resposta7'] }}</td>
-                <td>{{ resp['resposta8'] }}</td>
-                <td>{{ resp['resposta9'] }}</td>
-                <td>{{ resp['resposta10'] }}</td>
-                <td>{{ resp['resposta11'] }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-    <!-- Script para gerar o gráfico -->
-    <script>
-      const ctx = document.getElementById('graficoMedia').getContext('2d');
-      const medias = {{ medias | tojson }};
-      new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: ['Q1','Q2','Q3','Q4','Q5','Q6','Q7','Q8'],
-          datasets: [{
-            label: 'Média das Perguntas 1–8',
-            data: medias,
-            borderWidth: 1
-          }]
-        },
-        options: {
-          responsive: true,
-          scales: {
-            y: {
-              beginAtZero: true,
-              ticks: { stepSize: 1 }
-            }
-          }
-        }
-      });
-    </script>
-    </div>
 </body >
 </html>

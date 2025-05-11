@@ -27,7 +27,7 @@
       </p>
     </div>
 
-    <form method="POST">
+    <form id="surveyForm" method="POST" action="{{ url_for('pesquisa') }}">
       <!-- Seção 1: Tempo de Empresa -->
       <div class="section">
         <div class="section-header">
@@ -386,7 +386,7 @@
       </div>
     </form>
   </div>
-    <div id="submitModal" class="modal">
+   <div id="submitModal" class="modal" style="display:none;">
     <div class="modal-content">
       <p>Obrigado por enviar sua pesquisa!<br>Você será redirecionado para a página de login.</p>
       <button id="modalOk">OK</button>
@@ -395,21 +395,23 @@
 
   <!-- Script que aciona o modal e faz o redirect -->
   <script>
-    const form = document.querySelector('.pesquisa-container form');
-    const modal = document.getElementById('submitModal');
-    const okBtn = document.getElementById('modalOk');
+  // 1) Aponte para o form pelo ID
+  const form  = document.getElementById('surveyForm');
+  const modal = document.getElementById('submitModal');
+  const okBtn = document.getElementById('modalOk');
 
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();              // interrompe o envio imediato
-      modal.style.display = 'block';   // mostra o modal
-    });
+  // 2) Intercepte o submit e abra o modal
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();            // bloqueia o POST imediato
+    modal.style.display = 'block'; // exibe o modal
+  });
 
-    okBtn.addEventListener('click', function() {
-      // Redireciona para a rota de login
-      window.location.href = "{{ url_for('login') }}";
-    });
-  </script>
-</body>
-</html>
+  // 3) Quando clicar em OK, feche o modal e envie o form
+  okBtn.addEventListener('click', function() {
+    modal.style.display = 'none';  // opcional: oculta o modal
+    form.submit();                 // dispara o POST para /pesquisa
+  });
+</script>
+
 </body>
 </html>

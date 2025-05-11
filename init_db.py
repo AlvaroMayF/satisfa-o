@@ -1,10 +1,11 @@
-# init_db.py
 import sqlite3
 
 # agora criamos e populamos o survey.db
-conn = sqlite3.connect('survey.db')
+db_path = 'survey.db'
+conn = sqlite3.connect(db_path)
 cursor = conn.cursor()
 
+# ----- Criação de tabelas -----
 # Tabela de admins
 cursor.execute('''
   CREATE TABLE IF NOT EXISTS admins (
@@ -28,7 +29,7 @@ cursor.execute('''
   )
 ''')
 
-# Tabela de respostas legadas
+# Tabela de respostas legadas (até 11 perguntas)
 cursor.execute('''
   CREATE TABLE IF NOT EXISTS respostas (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -73,7 +74,7 @@ cursor.execute('''
   )
 ''')
 
-# Usuários de RH de teste
+# ----- Seed de usuários de RH -----
 cursor.executemany(
   'INSERT OR IGNORE INTO admins (username, password) VALUES (?, ?)',
   [
@@ -82,6 +83,50 @@ cursor.executemany(
   ]
 )
 
+# ----- Seed das perguntas do Form Builder -----
+# 32 perguntas de múltipla escolha
+perguntas_mc = []
+for i in range(1, 33):
+    perguntas_mc.append({
+        "order": i,
+        "text": f"Pergunta {i}: [insira o enunciado aqui]",
+        "type": "radio",
+        "options": [
+            ("Opção A", "A"),
+            ("Opção B", "B"),
+            ("Opção C", "C"),
+            ("Opção D", "D"),
+        ]
+    })
+
+# 33ª pergunta (discursiva)
+pergunta_texto = {
+    "order": 33,
+    "text": "Pergunta 33 (resposta livre): [insira o enunciado aqui]",
+    "type": "text",
+    "options": []
+}
+
+todas_perguntas = perguntas_mc + [pergunta_texto]
+
+for p in todas_perguntas:
+    cursor.execute('''
+      INSERT OR IGNORE INTO form_questions (order_index, question_text, question_type)
+      VALUES (?, ?, ?)
+    ''', (p["order"], p["text"], p["type"]))
+    # Recupera o id da pergunta (caso já exista mantém o mesmo ID)
+    cursor.execute('SELECT id FROM form_questions WHERE order_index = ?', (p["order"],))
+    qid = cursor.fetchone()[0]
+
+    # Popula opções somente para múltipla escolha
+    if p["type"] == "radio":
+        for label, value in p["options"]:
+            cursor.execute('''
+              INSERT OR IGNORE INTO form_options (question_id, option_label, option_value)
+              VALUES (?, ?, ?)
+            ''', (qid, label, value))
+
+# ----- Finaliza e fecha conexão -----
 conn.commit()
 conn.close()
 print("survey.db criado e populado com sucesso.")

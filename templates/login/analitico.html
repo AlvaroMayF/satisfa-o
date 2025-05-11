@@ -1,0 +1,73 @@
+<!-- templates/login/analitico.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Visão Analítica</title>
+
+  <!-- Google Fonts: Roboto -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Seu CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='analitico.css') }}">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <ul>
+      <li><a href="{{ url_for('admin') }}">Início</a></li>
+      <li><a href="{{ url_for('pesquisa') }}">Pesquisa</a></li>
+      <li><a class="active" href="{{ url_for('analitico') }}">Analítico</a></li>
+      <li><a href="{{ url_for('admin_login') }}">Sair</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <h1 class="page-title">Visão Analítica</h1>
+
+    {% if charts %}
+      {% for c in charts %}
+        <div class="question-card">
+          <div class="card-header">
+            <div class="question-text">{{ c.question_text }}</div>
+            <div class="meta">
+              <span class="response-count">{{ c.count }} respostas</span>
+              <button class="copy-btn" onclick="copyQuestion({{ loop.index0 }})" title="Copiar pergunta">📋</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <img class="chart-img"
+                 src="data:image/png;base64,{{ c.img_b64 }}"
+                 alt="Gráfico pergunta {{ loop.index }}">
+            <ul class="legend">
+              {% for item in c.legend %}
+                <li>
+                  <span class="dot" style="background: {{ item.color }};"></span>
+                  {{ item.label }}
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p class="no-data">Nenhum gráfico disponível.</p>
+    {% endif %}
+  </main>
+
+  <script>
+    function copyQuestion(idx) {
+      const txt = document.querySelectorAll('.question-text')[idx].innerText;
+      navigator.clipboard.writeText(txt)
+        .then(_=>alert('Pergunta copiada!'))
+        .catch(_=>alert('Falha ao copiar.'));
+    }
+  </script>
+</body>
+</html>

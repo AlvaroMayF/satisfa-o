@@ -164,7 +164,7 @@ def analitico():
             (q['id'],)
         ).fetchall()
         all_labels = [o['option_label'] for o in opcoes]
-        rows = conn.execute(
+        rows = conn.execute(\
             '''
             SELECT answer AS option_label, COUNT(*) AS cnt
             FROM response_answers

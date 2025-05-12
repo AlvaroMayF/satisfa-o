@@ -1,20 +1,21 @@
+<!-- templates/analitico.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Visão Analítica</title>
 
   <!-- Google Fonts: Roboto -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
     rel="stylesheet"
-  >
+  />
 
   <!-- CSS personalizado -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='analitico.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='analitico.css') }}" />
 </head>
 <body>
   <!-- Navbar -->
@@ -31,44 +32,98 @@
   <main class="container">
     <h1 class="page-title">Visão Analítica</h1>
 
+    <!-- Barra de controles -->
+    <div class="controls">
+      <input
+        type="search"
+        id="searchInput"
+        placeholder="🔍 Buscar pergunta..."
+        aria-label="Buscar pergunta"
+      />
+      <select id="minResponses" aria-label="Filtrar pelo número mínimo de respostas">
+        <option value="0">Todas as perguntas</option>
+        <option value="5">≥ 5 respostas</option>
+        <option value="10">≥ 10 respostas</option>
+      </select>
+      <button id="toggleView" title="Alternar visualização" aria-label="Alternar visualização">
+        ☰
+      </button>
+    </div>
+
     {% if charts %}
-      {% for c in charts %}
-        <div class="question-card">
-          <div class="card-header">
-            <div class="question-text">{{ c.question_text }}</div>
-            <div class="meta">
-              <span class="response-count">{{ c.count }} respostas</span>
-              <button class="copy-btn" onclick="copyQuestion({{ loop.index0 }})" title="Copiar pergunta">📋</button>
+      <!-- Lista de cards -->
+      <div class="cards-grid">
+        {% for c in charts %}
+          <div class="question-card" data-count="{{ c.count }}">
+            <div class="card-header">
+              <div class="question-text">{{ c.question_text }}</div>
+              <div class="meta">
+                <span class="response-count">{{ c.count }} respostas</span>
+                <button
+                  class="copy-btn"
+                  onclick="copyQuestion({{ loop.index0 }})"
+                  title="Copiar pergunta"
+                  aria-label="Copiar pergunta"
+                >📋</button>
+              </div>
+            </div>
+            <div class="card-body">
+              <img
+                class="chart-img"
+                src="data:image/png;base64,{{ c.img_b64 }}"
+                alt="Gráfico da pergunta {{ loop.index }}"
+              />
+              <ul class="legend">
+                {% for item in c.legend %}
+                  <li class="legend-item" title="{{ item.label }}">
+                    <span
+                      class="dot"
+                      style="background-color: {{ item.color }}"
+                    ></span>
+                    <span class="label">{{ item.label }}</span>
+                  </li>
+                {% endfor %}
+              </ul>
             </div>
           </div>
-          <div class="card-body">
-            <img class="chart-img"
-                 src="data:image/png;base64,{{ c.img_b64 }}"
-                 alt="Gráfico pergunta {{ loop.index }}">
-            <ul class="legend">
-              {% for item in c.legend %}
-                <li class="legend-item">
-                  <span class="dot" style="background-color: {{ item.color }}"></span>
-                  <span class="label">{{ item.label }}</span>
-                </li>
-              {% endfor %}
-            </ul>
-          </div>
-        </div>
-      {% endfor %}
+        {% endfor %}
+      </div>
     {% else %}
       <p class="no-data">Nenhum gráfico disponível.</p>
     {% endif %}
   </main>
 
-  <!-- Script para copiar pergunta -->
+  <!-- Scripts de interação -->
   <script>
     function copyQuestion(idx) {
       const txt = document.querySelectorAll('.question-text')[idx].innerText;
-      navigator.clipboard.writeText(txt)
+      navigator.clipboard
+        .writeText(txt)
         .then(() => alert('Pergunta copiada!'))
         .catch(() => alert('Falha ao copiar.'));
     }
+
+    // Filtrar por número mínimo de respostas
+    document.getElementById('minResponses').addEventListener('change', function (e) {
+      const min = +e.target.value;
+      document.querySelectorAll('.question-card').forEach(card => {
+        card.style.display = +card.dataset.count >= min ? '' : 'none';
+      });
+    });
+
+    // Buscar por texto na pergunta
+    document.getElementById('searchInput').addEventListener('input', function (e) {
+      const term = e.target.value.toLowerCase();
+      document.querySelectorAll('.question-card').forEach(card => {
+        const text = card.querySelector('.question-text').innerText.toLowerCase();
+        card.style.display = text.includes(term) ? '' : 'none';
+      });
+    });
+
+    // Alternar visualização (implementação futura)
+    document.getElementById('toggleView').addEventListener('click', function () {
+      document.querySelector('.cards-grid').classList.toggle('list-view');
+    });
   </script>
 </body>
 </html>

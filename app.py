@@ -2,10 +2,12 @@ import os
 import sqlite3
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, session, flash
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 import io
 import base64
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from itertools import cycle
 import math
 

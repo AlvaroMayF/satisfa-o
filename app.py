@@ -147,6 +147,7 @@ def admin():
 
 @app.route('/logout')
 def logout():
+    # Finaliza a sessão do usuário
     session.clear()
     return redirect(url_for('login'))
 
